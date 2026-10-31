@@ -1,0 +1,36 @@
+---
+import Base from '../layouts/Base.astro';
+import CTA from '../components/CTA.astro';
+
+// Edit plans and prices here.
+const plans = [
+  { name: 'Starter', price: '$—/mo', text: 'For small businesses getting started with one channel.', items: ['One core service', 'Monthly reporting', 'Dedicated strategist', 'Month-to-month'] },
+  { name: 'Growth', price: '$—/mo', text: 'For businesses ready to scale across multiple channels.', items: ['Up to three services', 'Bi-weekly check-ins', 'Conversion tracking setup', 'Quarterly strategy review'], featured: true },
+  { name: 'Enterprise', price: 'Custom', text: 'For large or multi-location organizations.', items: ['Full-service program', 'Senior strategy team', 'Custom dashboards', 'Priority support'] },
+];
+---
+<Base title="Pricing" description="Flexible, month-to-month digital marketing plans.">
+  <section class="hero">
+    <div class="container center">
+      <span class="eyebrow">Pricing</span>
+      <h1>Simple, flexible pricing</h1>
+      <p class="lead">No long-term contracts. Every plan is tailored after a free consultation.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container grid cols-3">
+      {plans.map((p) => (
+        <div class="card" style={p.featured ? 'border:2px solid var(--brand)' : ''}>
+          <h3>{p.name}</h3>
+          <p style="font-size:2rem;font-weight:800;color:var(--ink);margin:8px 0">{p.price}</p>
+          <p>{p.text}</p>
+          <ul>{p.items.map((i) => <li>{i}</li>)}</ul>
+          <a href="/contact" class={`btn ${p.featured ? '' : 'ghost'}`}>Get a Quote</a>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <CTA />
+</Base>

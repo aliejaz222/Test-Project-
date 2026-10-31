@@ -1,0 +1,38 @@
+---
+import Base from '../layouts/Base.astro';
+import CTA from '../components/CTA.astro';
+
+// Add real case studies here.
+const caseStudies = [
+  { title: 'Case study title', category: 'SEO', summary: 'Describe the client challenge, your approach and the measurable outcome.' },
+  { title: 'Case study title', category: 'Paid Advertising', summary: 'Describe the client challenge, your approach and the measurable outcome.' },
+  { title: 'Case study title', category: 'Web Design', summary: 'Describe the client challenge, your approach and the measurable outcome.' },
+  { title: 'Case study title', category: 'Social Media', summary: 'Describe the client challenge, your approach and the measurable outcome.' },
+  { title: 'Case study title', category: 'Email Marketing', summary: 'Describe the client challenge, your approach and the measurable outcome.' },
+  { title: 'Case study title', category: 'AI SEO', summary: 'Describe the client challenge, your approach and the measurable outcome.' },
+];
+---
+<Base title="Portfolio" description="Client case studies and results.">
+  <section class="hero">
+    <div class="container">
+      <span class="eyebrow">Portfolio</span>
+      <h1>Our work and client results</h1>
+      <p class="lead">A selection of projects across SEO, paid media, web design and more.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container grid cols-3">
+      {caseStudies.map((c) => (
+        <div class="card">
+          <div class="placeholder-img" style="margin-bottom:16px">Project image</div>
+          <span class="eyebrow">{c.category}</span>
+          <h3>{c.title}</h3>
+          <p>{c.summary}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <CTA />
+</Base>

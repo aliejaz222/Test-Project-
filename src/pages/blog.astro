@@ -1,0 +1,32 @@
+---
+import Base from '../layouts/Base.astro';
+
+// Add posts here, or move to Astro content collections (src/content/blog) as the blog grows.
+const posts = [
+  { title: 'Blog post title', date: '2026-01-01', excerpt: 'A short excerpt that summarizes the article.' },
+  { title: 'Blog post title', date: '2026-01-01', excerpt: 'A short excerpt that summarizes the article.' },
+  { title: 'Blog post title', date: '2026-01-01', excerpt: 'A short excerpt that summarizes the article.' },
+];
+---
+<Base title="Blog" description="Insights on SEO, paid media, AI and web design.">
+  <section class="hero">
+    <div class="container">
+      <span class="eyebrow">Blog</span>
+      <h1>Insights and resources</h1>
+      <p class="lead">Practical advice on SEO, advertising, AI search and websites.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container grid cols-3">
+      {posts.map((p) => (
+        <div class="card">
+          <div class="placeholder-img" style="margin-bottom:16px">Featured image</div>
+          <small>{p.date}</small>
+          <h3>{p.title}</h3>
+          <p>{p.excerpt}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+</Base>

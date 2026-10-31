@@ -1,0 +1,34 @@
+---
+import Base from '../layouts/Base.astro';
+import { site } from '../config/site';
+
+// Add open roles here.
+const roles = [
+  { title: 'SEO Specialist', type: 'Full-time · Remote' },
+  { title: 'Paid Media Manager', type: 'Full-time · Remote' },
+  { title: 'Web Developer', type: 'Full-time · Remote' },
+];
+---
+<Base title="Careers" description={`Join the ${site.name} team.`}>
+  <section class="hero">
+    <div class="container">
+      <span class="eyebrow">Careers</span>
+      <h1>Build your career with {site.name}</h1>
+      <p class="lead">We’re always looking for curious, driven people who love helping businesses grow.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container" style="max-width:860px">
+      <h2>Open positions</h2>
+      <div class="grid" style="margin-top:24px">
+        {roles.map((r) => (
+          <div class="card" style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px">
+            <div><h3 style="margin:0">{r.title}</h3><p>{r.type}</p></div>
+            <a href={`mailto:${site.email}?subject=${encodeURIComponent('Application: ' + r.title)}`} class="btn ghost">Apply</a>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+</Base>

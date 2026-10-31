@@ -1,0 +1,41 @@
+---
+import Base from '../layouts/Base.astro';
+import { site } from '../config/site';
+import { categories } from '../data/services';
+---
+<Base title="Contact Us" description={`Request a free proposal from ${site.name}.`}>
+  <section class="hero">
+    <div class="container">
+      <span class="eyebrow">Contact</span>
+      <h1>Get your free proposal</h1>
+      <p class="lead">Tell us a little about your business and goals. A strategist will reply within one business day.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container grid cols-2">
+      <form method="POST" action={site.formAction} class="card">
+        <div class="field"><label for="name">Full name</label><input id="name" name="name" required /></div>
+        <div class="field"><label for="email">Email</label><input id="email" name="email" type="email" required /></div>
+        <div class="field"><label for="phone">Phone</label><input id="phone" name="phone" type="tel" /></div>
+        <div class="field"><label for="website">Website</label><input id="website" name="website" type="url" placeholder="https://" /></div>
+        <div class="field">
+          <label for="service">Service interested in</label>
+          <select id="service" name="service">
+            {categories.map((c) => <option>{c.name}</option>)}
+            <option>Not sure yet</option>
+          </select>
+        </div>
+        <div class="field"><label for="message">How can we help?</label><textarea id="message" name="message" rows="5"></textarea></div>
+        <button type="submit" class="btn">Send Request</button>
+      </form>
+      <div>
+        <h2>Talk to us</h2>
+        <p><strong>Phone</strong><br /><a href={`tel:${site.phoneHref}`}>{site.phone}</a></p>
+        <p><strong>Email</strong><br /><a href={`mailto:${site.email}`}>{site.email}</a></p>
+        <p><strong>Address</strong><br />{site.address}</p>
+        <p><strong>Hours</strong><br />{site.hours}</p>
+      </div>
+    </div>
+  </section>
+</Base>

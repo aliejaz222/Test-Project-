@@ -1,0 +1,87 @@
+/* Brand tokens — change colors here to restyle the whole site. */
+:root {
+  --brand: #4f46e5;
+  --brand-dark: #3730a3;
+  --accent: #06b6d4;
+  --ink: #0f172a;
+  --muted: #475569;
+  --line: #e2e8f0;
+  --bg: #ffffff;
+  --bg-soft: #f8fafc;
+  --radius: 14px;
+  --max: 1200px;
+  --font: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; font-family: var(--font); color: var(--ink); background: var(--bg); line-height: 1.6; }
+img { max-width: 100%; display: block; }
+a { color: var(--brand); text-decoration: none; }
+a:hover { color: var(--brand-dark); }
+h1, h2, h3, h4 { line-height: 1.2; margin: 0 0 .6em; letter-spacing: -0.02em; }
+h1 { font-size: clamp(2rem, 5vw, 3.4rem); }
+h2 { font-size: clamp(1.6rem, 3.5vw, 2.4rem); }
+h3 { font-size: 1.2rem; }
+p { margin: 0 0 1em; }
+
+.container { width: 100%; max-width: var(--max); margin: 0 auto; padding: 0 20px; }
+.section { padding: 80px 0; }
+.section.soft { background: var(--bg-soft); }
+.eyebrow { text-transform: uppercase; font-size: .8rem; font-weight: 700; letter-spacing: .12em; color: var(--brand); margin-bottom: .8em; display: block; }
+.lead { font-size: 1.15rem; color: var(--muted); max-width: 720px; }
+.center { text-align: center; }
+.center .lead { margin-left: auto; margin-right: auto; }
+
+.btn { display: inline-block; padding: 14px 26px; border-radius: 999px; font-weight: 600; border: 2px solid var(--brand); background: var(--brand); color: #fff; transition: .2s; cursor: pointer; font-size: 1rem; }
+.btn:hover { background: var(--brand-dark); border-color: var(--brand-dark); color: #fff; }
+.btn.ghost { background: transparent; color: var(--brand); }
+.btn.ghost:hover { background: var(--brand); color: #fff; }
+.btn.light { background: #fff; color: var(--brand); border-color: #fff; }
+.btn-row { display: flex; gap: 12px; flex-wrap: wrap; }
+
+.grid { display: grid; gap: 24px; }
+.grid.cols-2 { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
+.grid.cols-3 { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+.grid.cols-4 { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+
+.card { background: #fff; border: 1px solid var(--line); border-radius: var(--radius); padding: 28px; transition: .2s; }
+a.card { color: inherit; display: block; }
+a.card:hover { border-color: var(--brand); transform: translateY(-3px); box-shadow: 0 12px 30px -12px rgba(79,70,229,.3); }
+.card p { color: var(--muted); margin: 0; }
+.card .more { color: var(--brand); font-weight: 600; margin-top: 12px; display: inline-block; }
+
+.hero { background: linear-gradient(135deg, #eef2ff 0%, #ecfeff 100%); padding: 100px 0 90px; }
+.hero .lead { margin-bottom: 1.8em; }
+
+.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 24px; text-align: center; }
+.stats strong { display: block; font-size: 2.4rem; color: var(--brand); }
+.stats span { color: var(--muted); }
+
+.steps { counter-reset: step; }
+.steps .card { position: relative; padding-top: 56px; }
+.steps .card::before { counter-increment: step; content: counter(step, decimal-leading-zero); position: absolute; top: 20px; left: 28px; font-weight: 800; color: var(--accent); }
+
+.faq details { border-bottom: 1px solid var(--line); padding: 18px 0; }
+.faq summary { font-weight: 600; cursor: pointer; font-size: 1.05rem; }
+.faq details p { color: var(--muted); margin: 12px 0 0; }
+
+.cta { background: linear-gradient(135deg, var(--brand) 0%, var(--brand-dark) 100%); color: #fff; border-radius: 24px; padding: 60px 40px; text-align: center; }
+.cta h2 { color: #fff; }
+.cta p { color: #e0e7ff; max-width: 640px; margin: 0 auto 1.6em; }
+
+.breadcrumb { font-size: .9rem; color: var(--muted); margin-bottom: 1em; }
+.breadcrumb a { color: var(--muted); }
+
+form .field { margin-bottom: 16px; }
+form label { display: block; font-weight: 600; margin-bottom: 6px; font-size: .95rem; }
+form input, form select, form textarea { width: 100%; padding: 12px 14px; border: 1px solid var(--line); border-radius: 10px; font: inherit; }
+form input:focus, form select:focus, form textarea:focus { outline: 2px solid var(--brand); border-color: transparent; }
+
+.placeholder-img { background: linear-gradient(135deg, #c7d2fe, #a5f3fc); border-radius: var(--radius); aspect-ratio: 16/10; display: grid; place-items: center; color: var(--brand-dark); font-weight: 600; }
+
+@media (max-width: 640px) {
+  .section { padding: 56px 0; }
+  .hero { padding: 64px 0; }
+  .cta { padding: 40px 20px; }
+}

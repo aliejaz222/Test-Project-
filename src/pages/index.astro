@@ -1,0 +1,103 @@
+---
+import Base from '../layouts/Base.astro';
+import CTA from '../components/CTA.astro';
+import { site, yearsInBusiness } from '../config/site';
+import { categories, servicesIn } from '../data/services';
+---
+<Base title={site.name}>
+  <section class="hero">
+    <div class="container">
+      <span class="eyebrow">{site.name} · Since {site.founded}</span>
+      <h1>Your one stop solution for digital growth</h1>
+      <p class="lead">SEO, paid advertising, AI visibility, social media and high-performance websites — planned, built and managed by one dedicated team focused on your revenue.</p>
+      <div class="btn-row">
+        <a href="/contact" class="btn">Get a Free Proposal</a>
+        <a href="/services" class="btn ghost">Explore Services</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container stats">
+      <div><strong>{yearsInBusiness}+</strong><span>Years in business</span></div>
+      <div><strong>40+</strong><span>Specialist services</span></div>
+      <div><strong>1</strong><span>Team for every channel</span></div>
+      <div><strong>0</strong><span>Long-term contracts</span></div>
+    </div>
+  </section>
+
+  <section class="section soft">
+    <div class="container">
+      <div class="center">
+        <span class="eyebrow">What we do</span>
+        <h2>Services that work together</h2>
+        <p class="lead">Pick a single service or combine them into a full growth program.</p>
+      </div>
+      <div class="grid cols-3" style="margin-top:40px">
+        {categories.map((cat) => (
+          <a href={`/${cat.slug}`} class="card">
+            <h3>{cat.name}</h3>
+            <p>{cat.intro}</p>
+            <p style="margin-top:12px;font-size:.9rem">{servicesIn(cat.slug).slice(0, 4).map((s) => s.name).join(' · ')}</p>
+            <span class="more">View {cat.name} →</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container grid cols-2" style="align-items:center">
+      <div class="placeholder-img">Replace with a team or office photo</div>
+      <div>
+        <span class="eyebrow">Why choose us</span>
+        <h2>Strategy, execution and reporting — all in one place</h2>
+        <p class="lead">Juggling multiple agencies wastes time and budget. With {site.name}, one accountable team owns your results across every channel.</p>
+        <div class="grid cols-2" style="margin-top:20px;gap:16px">
+          <div><h3>Data-driven</h3><p>Every decision is backed by tracking you can see.</p></div>
+          <div><h3>Transparent</h3><p>Plain-English reports and direct access to your team.</p></div>
+          <div><h3>Flexible</h3><p>Month-to-month plans that scale with you.</p></div>
+          <div><h3>In-house experts</h3><p>Strategists, designers, developers and writers.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section soft">
+    <div class="container">
+      <div class="center">
+        <span class="eyebrow">Results</span>
+        <h2>Featured work</h2>
+        <p class="lead">Add your own case studies on the portfolio page to showcase real client results.</p>
+      </div>
+      <div class="grid cols-3" style="margin-top:40px">
+        {[1, 2, 3].map((n) => (
+          <a href="/portfolio" class="card">
+            <div class="placeholder-img" style="margin-bottom:16px">Case study {n}</div>
+            <h3>Client case study title</h3>
+            <p>Short summary of the challenge, what you did and the measurable result.</p>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="center">
+        <span class="eyebrow">Testimonials</span>
+        <h2>What clients say</h2>
+      </div>
+      <div class="grid cols-3" style="margin-top:40px">
+        {[1, 2, 3].map(() => (
+          <div class="card">
+            <p>“Add a genuine client testimonial here once you have permission to publish it.”</p>
+            <p style="margin-top:16px"><strong style="color:var(--ink)">Client Name</strong><br />Title, Company</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <CTA />
+</Base>

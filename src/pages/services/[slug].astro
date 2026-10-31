@@ -1,0 +1,94 @@
+---
+import Base from '../../layouts/Base.astro';
+import CTA from '../../components/CTA.astro';
+import { services, getCategory, servicesIn } from '../../data/services';
+import { site } from '../../config/site';
+
+export function getStaticPaths() {
+  return services.map((service) => ({ params: { slug: service.slug }, props: { service } }));
+}
+
+const { service } = Astro.props;
+const category = getCategory(service.category);
+const faqs = service.faqs ?? category.faqs;
+const related = servicesIn(service.category).filter((s) => s.slug !== service.slug).slice(0, 6);
+---
+<Base title={service.name} description={service.intro}>
+  <section class="hero">
+    <div class="container">
+      <nav class="breadcrumb"><a href="/">Home</a> / <a href={`/${category.slug}`}>{category.name}</a> / {service.name}</nav>
+      <span class="eyebrow">{service.name}</span>
+      <h1>{service.headline}</h1>
+      <p class="lead">{service.intro}</p>
+      <div class="btn-row">
+        <a href="/contact" class="btn">Get a Free Proposal</a>
+        <a href="/portfolio" class="btn ghost">See Our Work</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <span class="eyebrow">What’s included</span>
+      <h2>Our {service.name} services</h2>
+      <div class="grid cols-4" style="margin-top:32px">
+        {service.features.map((f) => (
+          <div class="card"><h3>{f.title}</h3><p>{f.text}</p></div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section soft">
+    <div class="container">
+      <span class="eyebrow">How we work</span>
+      <h2>A clear process from day one</h2>
+      <div class="grid cols-4 steps" style="margin-top:32px">
+        {category.process.map((p) => (
+          <div class="card"><h3>{p.title}</h3><p>{p.text}</p></div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container grid cols-2" style="align-items:center">
+      <div>
+        <span class="eyebrow">Why {site.name}</span>
+        <h2>One team. Every channel. Real accountability.</h2>
+        <p class="lead">Since {site.founded}, we’ve helped businesses grow with honest advice and work that’s measured against your goals — not vanity metrics.</p>
+        <ul>
+          <li>Dedicated strategist and in-house specialists</li>
+          <li>Month-to-month agreements</li>
+          <li>Transparent reporting you can actually read</li>
+          <li>You own your accounts, content and data</li>
+        </ul>
+      </div>
+      <div class="placeholder-img">Replace with an image</div>
+    </div>
+  </section>
+
+  <section class="section soft">
+    <div class="container faq" style="max-width:860px">
+      <h2 class="center">{service.name} FAQs</h2>
+      {faqs.map((f) => (
+        <details><summary>{f.q}</summary><p>{f.a}</p></details>
+      ))}
+    </div>
+  </section>
+
+  {related.length > 0 && (
+    <section class="section">
+      <div class="container">
+        <h2>Related {category.name} services</h2>
+        <div class="grid cols-3" style="margin-top:24px">
+          {related.map((s) => (
+            <a href={`/services/${s.slug}`} class="card"><h3>{s.name}</h3><p>{s.intro}</p><span class="more">Learn more →</span></a>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <CTA />
+</Base>

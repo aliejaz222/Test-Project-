@@ -1,0 +1,20 @@
+---
+import { site } from '../config/site';
+interface Props { title?: string; text?: string }
+const {
+  title = 'Ready to grow with ' + site.name + '?',
+  text = 'Tell us about your goals and we’ll send a free, no-obligation proposal tailored to your business.',
+} = Astro.props;
+---
+<section class="section">
+  <div class="container">
+    <div class="cta">
+      <h2>{title}</h2>
+      <p>{text}</p>
+      <div class="btn-row" style="justify-content:center">
+        <a href="/contact" class="btn light">Get a Free Proposal</a>
+        <a href={`tel:${site.phoneHref}`} class="btn ghost" style="color:#fff;border-color:#fff">Call {site.phone}</a>
+      </div>
+    </div>
+  </div>
+</section>

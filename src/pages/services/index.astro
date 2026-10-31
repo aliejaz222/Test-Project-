@@ -1,0 +1,30 @@
+---
+import Base from '../../layouts/Base.astro';
+import CTA from '../../components/CTA.astro';
+import { categories, servicesIn } from '../../data/services';
+---
+<Base title="All Services" description="Every digital marketing, SEO, paid advertising, AI and web design service we offer.">
+  <section class="hero">
+    <div class="container">
+      <span class="eyebrow">Services</span>
+      <h1>Everything you need to grow online</h1>
+      <p class="lead">Explore our full range of services — mix and match to build the program that fits your goals.</p>
+    </div>
+  </section>
+
+  {categories.map((cat, i) => (
+    <section class={`section ${i % 2 ? 'soft' : ''}`}>
+      <div class="container">
+        <h2><a href={`/${cat.slug}`}>{cat.name}</a></h2>
+        <p class="lead">{cat.intro}</p>
+        <div class="grid cols-3" style="margin-top:24px">
+          {servicesIn(cat.slug).map((s) => (
+            <a href={`/services/${s.slug}`} class="card"><h3>{s.name}</h3><p>{s.intro}</p></a>
+          ))}
+        </div>
+      </div>
+    </section>
+  ))}
+
+  <CTA />
+</Base>

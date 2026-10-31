@@ -1,0 +1,52 @@
+---
+import Base from '../layouts/Base.astro';
+import CTA from '../components/CTA.astro';
+import { categories, servicesIn } from '../data/services';
+
+export function getStaticPaths() {
+  return categories.map((category) => ({ params: { category: category.slug }, props: { category } }));
+}
+
+const { category } = Astro.props;
+const list = servicesIn(category.slug);
+---
+<Base title={category.name} description={category.intro}>
+  <section class="hero">
+    <div class="container">
+      <nav class="breadcrumb"><a href="/">Home</a> / {category.name}</nav>
+      <span class="eyebrow">{category.name}</span>
+      <h1>{category.headline}</h1>
+      <p class="lead">{category.intro}</p>
+      <a href="/contact" class="btn">Get a Free Proposal</a>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <h2>{category.name} services</h2>
+      <div class="grid cols-3" style="margin-top:24px">
+        {list.map((s) => (
+          <a href={`/services/${s.slug}`} class="card"><h3>{s.name}</h3><p>{s.intro}</p><span class="more">Learn more →</span></a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section soft">
+    <div class="container">
+      <h2>Our process</h2>
+      <div class="grid cols-4 steps" style="margin-top:24px">
+        {category.process.map((p) => <div class="card"><h3>{p.title}</h3><p>{p.text}</p></div>)}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container faq" style="max-width:860px">
+      <h2 class="center">Frequently asked questions</h2>
+      {category.faqs.map((f) => <details><summary>{f.q}</summary><p>{f.a}</p></details>)}
+    </div>
+  </section>
+
+  <CTA />
+</Base>
