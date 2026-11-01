@@ -1,0 +1,36 @@
+---
+// Split hero used on the home page and every service page: text on the left, lead form on the right.
+import LeadForm from './LeadForm.astro';
+import { img, type PhotoKey } from '../data/images';
+interface Props { eyebrow?: string; title: string; subtitle?: string; image: PhotoKey; crumbs?: { name: string; href?: string }[]; formTitle?: string }
+const { eyebrow, title, subtitle, image, crumbs, formTitle } = Astro.props;
+---
+<section class="hero-split" style={`--hero-img:url('${img(image, 1800)}')`}>
+  <div class="container hero-grid">
+    <div class="hero-text">
+      {crumbs && (
+        <nav class="crumbs" aria-label="Breadcrumb">
+          {crumbs.map((c, i) => (
+            <>{c.href ? <a href={c.href}>{c.name}</a> : <span>{c.name}</span>}{i < crumbs.length - 1 && ' / '}</>
+          ))}
+        </nav>
+      )}
+      {eyebrow && <span class="eyebrow light">{eyebrow}</span>}
+      <h1>{title}</h1>
+      {subtitle && <p class="hero-sub">{subtitle}</p>}
+      <slot />
+    </div>
+    <LeadForm title={formTitle} compact />
+  </div>
+</section>
+
+<style>
+  .hero-split { position: relative; color: #fff; padding: 90px 0; background: linear-gradient(100deg, rgba(15,23,42,.94) 0%, rgba(30,27,75,.86) 55%, rgba(30,27,75,.55) 100%), var(--hero-img) center/cover; }
+  .hero-grid { display: grid; grid-template-columns: 1.25fr 1fr; gap: 56px; align-items: center; }
+  .hero-text h1 { color: #fff; }
+  .hero-sub { font-size: 1.2rem; color: #c7d2fe; max-width: 600px; }
+  .crumbs { font-size: .88rem; color: #a5b4fc; margin-bottom: 14px; }
+  .crumbs a { color: #a5b4fc; }
+  .eyebrow.light { color: var(--accent); }
+  @media (max-width: 900px) { .hero-grid { grid-template-columns: 1fr; gap: 36px; } .hero-split { padding: 60px 0; } }
+</style>

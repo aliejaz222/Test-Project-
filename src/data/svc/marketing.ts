@@ -1,0 +1,200 @@
+import type { Service } from './types';
+
+export const marketingServices: Service[] = [
+  {
+    slug: 'digital-marketing',
+    name: 'Digital Marketing',
+    category: 'online-marketing',
+    image: 'teamWork',
+    headline: 'Digital Marketing With One Team Behind Every Channel',
+    subhead: 'SEO, ads, social, email and web, planned together',
+    intro: 'Hiring a different agency for every channel means more meetings, mixed messages and nobody owning the result. We plan all your digital marketing as one program, run by one team that answers for the outcome.',
+    highlights: [
+      { title: 'One plan, one budget', text: 'Money goes where it’s working best this month, not where a contract says it has to go.' },
+      { title: 'One point of contact', text: 'Your strategist coordinates the specialists, so you don’t have to.' },
+    ],
+    included: [
+      { title: 'Growth strategy', text: 'A channel plan with goals and budgets for each quarter.' },
+      { title: 'SEO', text: 'Organic visibility in search and AI answers.' },
+      { title: 'Paid media', text: 'Search, social and video ads.' },
+      { title: 'Social and email', text: 'Content and campaigns that keep customers engaged.' },
+      { title: 'Website improvements', text: 'Landing pages and CRO to lift conversions.' },
+      { title: 'Unified reporting', text: 'One dashboard showing every channel’s contribution.' },
+    ],
+    deepDive: {
+      title: 'Why integrated marketing wins',
+      paragraphs: [
+        'Channels feed each other. Ads find new customers, email brings them back, SEO lowers your cost over time and social keeps your brand in mind. When one team runs them all, each channel makes the others work better.',
+        'It also makes decisions easier. You see one set of numbers, from one team, with one recommendation about where your next dollar should go.',
+      ],
+    },
+  },
+  {
+    slug: 'conversion-rate-optimization',
+    name: 'Conversion Rate Optimization',
+    category: 'online-marketing',
+    image: 'chartsDesk',
+    headline: 'Conversion Rate Optimization: More Sales From the Same Traffic',
+    subhead: 'Find what stops visitors from buying, then fix it',
+    intro: 'Doubling your conversion rate is often cheaper than doubling your traffic. We study how people use your site, find the friction and run proper tests to prove what works.',
+    highlights: [
+      { title: 'Evidence, not opinions', text: 'Changes are based on data and user behavior, then confirmed with A/B tests.' },
+      { title: 'Works with every channel', text: 'Better conversion makes your SEO, ads and email more profitable at the same time.' },
+    ],
+    included: [
+      { title: 'Funnel analysis', text: 'Find exactly where visitors drop off.' },
+      { title: 'Heatmaps and recordings', text: 'See how real people use your pages.' },
+      { title: 'User surveys', text: 'Ask visitors what stopped them.' },
+      { title: 'A/B testing', text: 'Statistically sound tests on pages and checkout.' },
+      { title: 'Design and copy changes', text: 'Our team builds the winning versions.' },
+      { title: 'Test reporting', text: 'What we tested, what won and what it’s worth.' },
+    ],
+    deepDive: {
+      title: 'Our CRO method',
+      paragraphs: [
+        'We start by finding the leaks. Analytics shows where people leave, recordings show what they were doing, and surveys tell us why.',
+        'Each problem becomes a test idea, ranked by likely impact. We run tests long enough to trust the result, then roll out the winners and move to the next idea.',
+      ],
+    },
+  },
+  {
+    slug: 'social-media-marketing',
+    name: 'Social Media Marketing',
+    category: 'online-marketing',
+    image: 'socialPeople',
+    headline: 'Social Media Marketing That Builds a Following and Sales',
+    subhead: 'Strategy, content and community management',
+    intro: 'Posting just to post doesn’t grow anything. We build a social plan around what your audience cares about, make the content in-house and manage your community so your brand feels alive and responsive.',
+    highlights: [
+      { title: 'Content made for each platform', text: 'Reels for Instagram, quick takes for X, professional posts for LinkedIn. Not the same post everywhere.' },
+      { title: 'Organic plus paid', text: 'Your best posts get a paid boost so they reach more of the right people.' },
+    ],
+    included: [
+      { title: 'Social strategy', text: 'Goals, platforms, content pillars and posting rhythm.' },
+      { title: 'Content calendar', text: 'Posts planned around launches and key dates.' },
+      { title: 'Graphics and video', text: 'Designed and edited by our creative team.' },
+      { title: 'Community management', text: 'Timely replies to comments and messages.' },
+      { title: 'Influencer outreach', text: 'Partnerships with creators who fit your brand.' },
+      { title: 'Monthly analytics', text: 'Reach, engagement and traffic to your site.' },
+    ],
+    deepDive: {
+      title: 'Social that drives business',
+      paragraphs: [
+        'Followers are nice, but they don’t pay the bills. We track how social activity leads to site visits, email signups and sales, and we tune the content plan to push those numbers up.',
+        'Consistency matters more than viral moments. A steady stream of useful, on-brand content builds trust that pays off every time someone is ready to buy.',
+      ],
+    },
+  },
+  {
+    slug: 'forum-marketing',
+    name: 'Forum Marketing',
+    category: 'online-marketing',
+    image: 'officeTeam',
+    headline: 'Forum and Community Marketing, Done Honestly',
+    subhead: 'Build a real presence on Reddit and niche forums',
+    intro: 'People trust forum threads more than ads. Those threads also feed Google results and AI answers. We help your brand show up in these communities the right way: openly, helpfully and within the rules.',
+    highlights: [
+      { title: 'Transparent participation', text: 'No fake accounts or hidden promotion. Your team shows up as experts and says who they are.' },
+      { title: 'Listening first', text: 'We learn what people are already saying about you and your competitors.' },
+    ],
+    included: [
+      { title: 'Community research', text: 'Find the forums and threads your buyers read.' },
+      { title: 'Brand monitoring', text: 'Track mentions and sentiment over time.' },
+      { title: 'Expert replies', text: 'Helpful answers from your brand account.' },
+      { title: 'AMA and event support', text: 'Plan and run community Q&A sessions.' },
+      { title: 'Content insights', text: 'Turn real questions into content ideas.' },
+      { title: 'Reporting', text: 'Mentions, sentiment and referral traffic.' },
+    ],
+    deepDive: {
+      title: 'Why forums matter now',
+      paragraphs: [
+        'Search engines and AI assistants increasingly surface community discussions. When someone asks which product is best, a thread mentioning your brand can carry more weight than your own website.',
+        'The only approach that works long term is honest participation. Communities spot fake promotion fast, and the backlash isn’t worth it. Helpful experts, on the other hand, get remembered and recommended.',
+      ],
+    },
+  },
+  {
+    slug: 'email-marketing',
+    name: 'Email Marketing',
+    category: 'online-marketing',
+    image: 'emailLaptop',
+    headline: 'Email Marketing That Brings Customers Back',
+    subhead: 'Automated flows and campaigns that drive repeat sales',
+    intro: 'Email is the one channel you fully own. No algorithm decides who sees it. We build automated flows that run in the background and campaigns that people actually look forward to opening.',
+    highlights: [
+      { title: 'Flows that earn while you sleep', text: 'Welcome, abandoned cart, post-purchase and win-back sequences set up once and improved over time.' },
+      { title: 'The right message for each person', text: 'Segments based on what people bought, browsed and clicked.' },
+    ],
+    included: [
+      { title: 'Automated flows', text: 'Welcome, cart, browse, post-purchase and win-back.' },
+      { title: 'Campaign design', text: 'Mobile-friendly emails that match your brand.' },
+      { title: 'Copywriting', text: 'Subject lines and copy that get opened and clicked.' },
+      { title: 'Segmentation', text: 'Messages tailored by behavior and value.' },
+      { title: 'Deliverability', text: 'Authentication and list hygiene to stay out of spam.' },
+      { title: 'SMS add-on', text: 'Text messages that complement your email program.' },
+    ],
+    deepDive: {
+      title: 'Building an email program that lasts',
+      paragraphs: [
+        'We start with automation, because flows typically drive a large share of email revenue with very little ongoing effort. Once those are solid, we build a campaign calendar around launches, seasons and promotions.',
+        'We also protect your sender reputation. Clean lists, proper authentication and sensible sending habits keep your emails landing in the inbox.',
+      ],
+    },
+  },
+  {
+    slug: 'reputation-management',
+    name: 'Reputation Management',
+    category: 'online-marketing',
+    image: 'phone',
+    headline: 'Online Reputation Management That Protects Your Name',
+    subhead: 'More good reviews, better replies, stronger search results',
+    intro: 'Before people buy from you, they look you up. What they find shapes their decision. We help you earn more genuine reviews, respond well to every one, and make sure your best side shows up in search.',
+    highlights: [
+      { title: 'Real reviews only', text: 'We help you ask happy customers at the right moment. We never post fake reviews.' },
+      { title: 'Calm, professional replies', text: 'Even negative reviews become a chance to show you care.' },
+    ],
+    included: [
+      { title: 'Review requests', text: 'Simple flows that ask customers for feedback.' },
+      { title: 'Response management', text: 'Replies written for every major platform.' },
+      { title: 'Branded search cleanup', text: 'Owned content that strengthens page one for your name.' },
+      { title: 'Listing management', text: 'Accurate profiles on review sites and directories.' },
+      { title: 'Alerts', text: 'Know as soon as a new review or mention appears.' },
+      { title: 'Monthly summary', text: 'Rating trends and themes from customer feedback.' },
+    ],
+    deepDive: {
+      title: 'Reputation is a long game',
+      paragraphs: [
+        'You can’t delete a bad review, but you can outweigh it. A steady flow of honest reviews from happy customers is the best protection there is.',
+        'Replies matter too. Future customers read how you respond. A thoughtful reply to a complaint often builds more trust than a dozen five-star ratings.',
+      ],
+    },
+  },
+  {
+    slug: 'digital-marketing-consulting',
+    name: 'Digital Marketing Consulting',
+    category: 'online-marketing',
+    image: 'whiteboard',
+    headline: 'Digital Marketing Consulting for Clear Decisions',
+    subhead: 'Senior advice whether you execute with us or in-house',
+    intro: 'Sometimes you don’t need an agency. You need someone experienced to look at what you’re doing and tell you, honestly, what to change. Our consultants review your marketing and hand you a practical plan.',
+    highlights: [
+      { title: 'Honest assessment', text: 'We’ll tell you what’s working, what isn’t and what to stop paying for.' },
+      { title: 'A plan you can use', text: 'Clear priorities your team can act on immediately.' },
+    ],
+    included: [
+      { title: 'Marketing audit', text: 'Every channel reviewed against your goals.' },
+      { title: 'Competitor review', text: 'Where competitors are winning and why.' },
+      { title: '90-day plan', text: 'Priorities, owners and expected impact.' },
+      { title: 'Team workshops', text: 'Training sessions for your marketers.' },
+      { title: 'Vendor review', text: 'Independent look at agencies and tools.' },
+      { title: 'Ongoing advisory', text: 'Monthly check-ins if you want them.' },
+    ],
+    deepDive: {
+      title: 'When consulting makes sense',
+      paragraphs: [
+        'Consulting is a good fit if you have an in-house team that needs direction, you’re about to make a big marketing investment, or you’re not sure your current agency is delivering.',
+        'You’ll get a senior strategist’s full attention and a written plan at the end. If you want help executing it, we can do that too, but there’s no obligation.',
+      ],
+    },
+  },
+];

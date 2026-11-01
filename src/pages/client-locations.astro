@@ -1,0 +1,41 @@
+---
+import Base from '../layouts/Base.astro';
+import CTA from '../components/CTA.astro';
+import { site } from '../config/site';
+import { img } from '../data/images';
+---
+<Base title="Client Locations" description={`Cities and regions where ${site.name} serves clients.`}>
+  <section class="hero">
+    <div class="container">
+      <span class="eyebrow">Client Locations</span>
+      <h1>Where Our Clients Are</h1>
+      <p class="lead">We work with businesses across the country and beyond. Distance doesn’t matter. Video calls, shared dashboards and a responsive team keep everything moving.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="grid cols-4">
+        {site.locations.map((r) => (
+          <div class="card">
+            <h2 style="font-size:1.3rem">{r.region}</h2>
+            <ul class="check-list">{r.cities.map((c) => <li>{c}</li>)}</ul>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section soft">
+    <div class="container split">
+      <div class="photo"><img src={img('city', 900)} alt="City street at sunset" loading="lazy" /></div>
+      <div>
+        <h2>Don’t See Your City?</h2>
+        <p>That’s fine. We work remotely with clients everywhere. If you want local SEO for a specific area, we’ll research that market just like we would our own backyard.</p>
+        <a href="/contact" class="btn">Get in Touch</a>
+      </div>
+    </div>
+  </section>
+
+  <CTA />
+</Base>

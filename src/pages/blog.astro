@@ -1,32 +1,34 @@
 ---
 import Base from '../layouts/Base.astro';
-
-// Add posts here, or move to Astro content collections (src/content/blog) as the blog grows.
-const posts = [
-  { title: 'Blog post title', date: '2026-01-01', excerpt: 'A short excerpt that summarizes the article.' },
-  { title: 'Blog post title', date: '2026-01-01', excerpt: 'A short excerpt that summarizes the article.' },
-  { title: 'Blog post title', date: '2026-01-01', excerpt: 'A short excerpt that summarizes the article.' },
-];
+import CTA from '../components/CTA.astro';
+import { posts } from '../data/posts';
+import { img } from '../data/images';
 ---
-<Base title="Blog" description="Insights on SEO, paid media, AI and web design.">
+<Base title="Blog" description="Practical advice on SEO, AI search, paid ads and web design.">
   <section class="hero">
     <div class="container">
       <span class="eyebrow">Blog</span>
-      <h1>Insights and resources</h1>
-      <p class="lead">Practical advice on SEO, advertising, AI search and websites.</p>
+      <h1>Insights and Resources</h1>
+      <p class="lead">Practical advice on SEO, AI search, advertising and websites, written by our team.</p>
     </div>
   </section>
 
   <section class="section">
     <div class="container grid cols-3">
       {posts.map((p) => (
-        <div class="card">
-          <div class="placeholder-img" style="margin-bottom:16px">Featured image</div>
-          <small>{p.date}</small>
+        <a href={`/blog/${p.slug}`} class="card post-card">
+          <div class="photo"><img src={img(p.image, 700)} alt="" loading="lazy" /></div>
+          <span class="eyebrow">{p.category} · {new Date(p.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</span>
           <h3>{p.title}</h3>
           <p>{p.excerpt}</p>
-        </div>
+          <span class="more">Read more →</span>
+        </a>
       ))}
     </div>
   </section>
+  <CTA />
 </Base>
+
+<style>
+  .post-card .photo { aspect-ratio: 16/9; margin-bottom: 14px; }
+</style>

@@ -1,0 +1,31 @@
+---
+import { site } from '../config/site';
+interface Props { title?: string; compact?: boolean }
+const { title = 'Get a Free Strategy Review', compact = false } = Astro.props;
+---
+<form method="POST" action={site.formAction} class="lead-form">
+  <h2 class="lead-form-title">{title}</h2>
+  <p class="lead-form-sub">Tell us where you want to grow. We’ll reply within one business day.</p>
+  <div class="row">
+    <input name="name" placeholder="Your name" aria-label="Your name" required />
+    <input name="email" type="email" placeholder="Email" aria-label="Email" required />
+  </div>
+  <div class="row">
+    <input name="phone" type="tel" placeholder="Phone" aria-label="Phone" />
+    <input name="website" placeholder="Website" aria-label="Website" />
+  </div>
+  {!compact && <textarea name="message" rows="3" placeholder="What are your goals?" aria-label="Your goals"></textarea>}
+  <button type="submit" class="btn">Send My Free Review</button>
+  <small>No spam. No obligation.</small>
+</form>
+
+<style>
+  .lead-form { background: #fff; border-radius: 18px; padding: 28px; box-shadow: 0 30px 60px -30px rgba(15,23,42,.45); display: grid; gap: 12px; color: var(--ink); }
+  .lead-form-title { font-size: 1.4rem; margin: 0; }
+  .lead-form-sub { color: var(--muted); margin: 0 0 4px; font-size: .95rem; }
+  .row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  input, textarea { width: 100%; padding: 12px 14px; border: 1px solid var(--line); border-radius: 10px; font: inherit; }
+  input:focus, textarea:focus { outline: 2px solid var(--brand); border-color: transparent; }
+  small { color: var(--muted); text-align: center; }
+  @media (max-width: 520px) { .row { grid-template-columns: 1fr; } }
+</style>

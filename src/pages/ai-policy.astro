@@ -1,0 +1,28 @@
+---
+import Base from '../layouts/Base.astro';
+import { site } from '../config/site';
+---
+<Base title="Our AI Policy" description={`How ${site.name} uses artificial intelligence in client work.`}>
+  <section class="hero">
+    <div class="container">
+      <span class="eyebrow">AI Policy</span>
+      <h1>Our AI Policy</h1>
+      <p class="lead">AI helps us work faster. People make the decisions. Here’s exactly how we use it.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container prose">
+      <h2>Where we use AI</h2>
+      <p>We use AI tools for research, data analysis, first drafts, image editing and spotting patterns in large data sets. These tools save time on repetitive work so our team can focus on strategy and quality.</p>
+      <h2>Where people stay in charge</h2>
+      <p>Every piece of content, ad and recommendation that reaches you or your customers is reviewed, edited and approved by a member of our team. We never publish AI output without human review.</p>
+      <h2>Your data</h2>
+      <p>We don’t put confidential client information into public AI tools that train on user input. When we do use AI with client data, we use business-grade tools with data protection settings turned on.</p>
+      <h2>Honesty</h2>
+      <p>If you’d prefer we avoid AI on your account, or on certain kinds of work, just tell us. We’ll respect that.</p>
+      <h2>Questions</h2>
+      <p>Email us at <a href={`mailto:${site.email}`}>{site.email}</a> and we’ll be happy to explain more.</p>
+    </div>
+  </section>
+</Base>

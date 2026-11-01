@@ -1,92 +1,137 @@
 ---
 import { site } from '../config/site';
-import { categories, servicesIn } from '../data/services';
+import { getCategory, servicesIn } from '../data/services';
+import { caseStudies } from '../data/caseStudies';
+
+type Col = { title: string; href: string; links: { name: string; href: string }[] };
+const svcLinks = (cat: string, group?: string) =>
+  servicesIn(cat, group).map((s) => ({ name: s.name, href: `/services/${s.slug}` }));
+const col = (cat: string): Col => ({ title: getCategory(cat).menuLabel, href: `/${cat}`, links: svcLinks(cat) });
+
+const menus: { label: string; href: string; cols: Col[]; feature?: typeof caseStudies[number] }[] = [
+  { label: 'Digital Marketing', href: '/digital-marketing', cols: [col('seo'), col('paid-advertising'), col('online-marketing')], feature: caseStudies[0] },
+  { label: 'AI', href: '/ai', cols: [col('ai')], feature: caseStudies[5] },
+  { label: 'SEO By Industry', href: '/industries', cols: [col('industries')], feature: caseStudies[1] },
+  {
+    label: 'Web Design',
+    href: '/web-design',
+    cols: [
+      { title: 'By Website Goal', href: '/web-design', links: svcLinks('web-design', 'By Goal') },
+      { title: 'By Platform', href: '/web-design', links: svcLinks('web-design', 'By Platform') },
+      { title: 'By Industry', href: '/web-design', links: svcLinks('web-design', 'By Industry') },
+    ],
+    feature: caseStudies[4],
+  },
+];
+
+const company = [
+  { name: 'About Us', href: '/about' },
+  { name: 'Partner With Us', href: '/partners' },
+  { name: 'Client Locations', href: '/client-locations' },
+  { name: 'Pricing', href: '/pricing' },
+  { name: 'Careers', href: '/careers' },
+  { name: 'Blog', href: '/blog' },
+  { name: 'Our AI Policy', href: '/ai-policy' },
+];
 ---
 <header class="site-header">
   <div class="topbar">
     <div class="container topbar-inner">
-      <span>Trusted since {site.founded}</span>
-      <a href={`tel:${site.phoneHref}`}>{site.phone}</a>
+      <a href="/portfolio">See Our Client Case Studies</a>
+      <div class="topbar-right">
+        <a href={`tel:${site.phoneHref}`}>{site.phone}</a>
+        <a href="/contact" class="topbar-cta">Get a Free Proposal</a>
+      </div>
     </div>
   </div>
   <div class="container nav-inner">
     <a href="/" class="logo" aria-label={`${site.name} home`}>
-      <img src="/favicon.svg" alt="" width="36" height="36" />
+      <img src="/favicon.svg" alt="" width="38" height="38" />
       <span><strong>{site.name}</strong><small>{site.tagline}</small></span>
     </a>
 
     <input type="checkbox" id="nav-toggle" class="nav-toggle" />
-    <label for="nav-toggle" class="burger" aria-label="Toggle menu"><span></span><span></span><span></span></label>
+    <label for="nav-toggle" class="burger" aria-label="Open menu"><span></span><span></span><span></span></label>
 
-    <nav class="main-nav">
-      <ul>
-        {categories.map((cat) => (
+    <nav class="main-nav" aria-label="Main">
+      <ul class="menu">
+        {menus.map((m) => (
           <li class="has-menu">
-            <a href={`/${cat.slug}`}>{cat.name}</a>
+            <a href={m.href}>{m.label}</a>
             <div class="mega">
-              <a href={`/${cat.slug}`} class="mega-title">All {cat.name} →</a>
-              <ul>
-                {servicesIn(cat.slug).map((s) => (
-                  <li><a href={`/services/${s.slug}`}>{s.name}</a></li>
+              <div class="mega-cols" style={`--cols:${m.cols.length}`}>
+                {m.cols.map((c) => (
+                  <div>
+                    <a href={c.href} class="mega-title">{c.title}</a>
+                    <ul>{c.links.map((l) => <li><a href={l.href}>{l.name}</a></li>)}</ul>
+                  </div>
                 ))}
-              </ul>
+              </div>
+              {m.feature && (
+                <a href={`/portfolio/${m.feature.slug}`} class="mega-feature">
+                  <span class="eyebrow">Case Study</span>
+                  <strong>{m.feature.headline}</strong>
+                  <span class="more">Read the story →</span>
+                </a>
+              )}
             </div>
           </li>
         ))}
+        <li><a href="/portfolio">Case Studies</a></li>
+        <li><a href="/reviews">Reviews</a></li>
         <li class="has-menu">
-          <a href="/about">Company</a>
+          <a href="/about">About</a>
           <div class="mega small">
-            <ul>
-              <li><a href="/about">About Us</a></li>
-              <li><a href="/portfolio">Portfolio</a></li>
-              <li><a href="/pricing">Pricing</a></li>
-              <li><a href="/careers">Careers</a></li>
-              <li><a href="/blog">Blog</a></li>
-              <li><a href="/contact">Contact</a></li>
-            </ul>
+            <ul>{company.map((l) => <li><a href={l.href}>{l.name}</a></li>)}</ul>
           </div>
         </li>
       </ul>
-      <a href="/contact" class="btn nav-cta">Get a Free Proposal</a>
+      <a href="/contact" class="btn nav-cta">Contact Us</a>
     </nav>
   </div>
 </header>
 
 <style>
   .site-header { position: sticky; top: 0; z-index: 50; background: #fff; border-bottom: 1px solid var(--line); }
-  .topbar { background: var(--ink); color: #cbd5e1; font-size: .85rem; }
-  .topbar-inner { display: flex; justify-content: space-between; padding: 6px 20px; }
-  .topbar a { color: #fff; font-weight: 600; }
-  .nav-inner { display: flex; align-items: center; justify-content: space-between; min-height: 72px; gap: 20px; }
-  .logo { display: flex; align-items: center; gap: 10px; color: var(--ink); }
+  .topbar { background: var(--ink); font-size: .85rem; }
+  .topbar-inner { display: flex; justify-content: space-between; align-items: center; padding-top: 7px; padding-bottom: 7px; gap: 12px; }
+  .topbar a { color: #e2e8f0; font-weight: 600; }
+  .topbar-right { display: flex; gap: 18px; align-items: center; }
+  .topbar-cta { background: var(--accent); color: var(--ink) !important; padding: 4px 12px; border-radius: 999px; }
+  .nav-inner { display: flex; align-items: center; justify-content: space-between; min-height: 76px; gap: 16px; position: relative; }
+  .logo { display: flex; align-items: center; gap: 10px; color: var(--ink); flex-shrink: 0; }
   .logo strong { display: block; font-size: 1.15rem; line-height: 1.1; }
-  .logo small { display: block; color: var(--muted); font-size: .75rem; }
-  .main-nav { display: flex; align-items: center; gap: 18px; }
-  .main-nav > ul { list-style: none; display: flex; gap: 4px; margin: 0; padding: 0; }
-  .main-nav > ul > li { position: relative; }
-  .main-nav > ul > li > a { display: block; padding: 24px 10px; color: var(--ink); font-weight: 600; font-size: .95rem; }
-  .main-nav > ul > li > a:hover { color: var(--brand); }
-  .mega { display: none; position: absolute; top: 100%; left: -20px; background: #fff; border: 1px solid var(--line); border-radius: var(--radius); box-shadow: 0 20px 40px -20px rgba(15,23,42,.25); padding: 20px; min-width: 520px; }
-  .mega.small { min-width: 220px; }
-  .has-menu:hover .mega, .has-menu:focus-within .mega { display: block; }
-  .mega ul { list-style: none; margin: 0; padding: 0; columns: 2; column-gap: 24px; }
-  .mega.small ul { columns: 1; }
-  .mega li a { display: block; padding: 6px 0; color: var(--muted); font-size: .92rem; break-inside: avoid; }
+  .logo small { display: block; color: var(--muted); font-size: .72rem; }
+  .main-nav { display: flex; align-items: center; gap: 14px; }
+  .menu { list-style: none; display: flex; margin: 0; padding: 0; }
+  .menu > li > a { display: block; padding: 26px 10px; color: var(--ink); font-weight: 600; font-size: .93rem; white-space: nowrap; }
+  .menu > li > a:hover { color: var(--brand); }
+  .has-menu { position: static; }
+  .mega { display: none; position: absolute; top: 100%; left: 20px; right: 20px; background: #fff; border: 1px solid var(--line); border-radius: 0 0 var(--radius) var(--radius); box-shadow: 0 24px 48px -24px rgba(15,23,42,.3); padding: 28px; gap: 28px; }
+  .has-menu:hover > .mega, .has-menu:focus-within > .mega { display: flex; }
+  .mega-cols { flex: 1; display: grid; grid-template-columns: repeat(var(--cols), 1fr); gap: 24px; }
+  .mega ul { list-style: none; margin: 0; padding: 0; }
+  .mega li a { display: block; padding: 5px 0; color: var(--muted); font-size: .92rem; }
   .mega li a:hover { color: var(--brand); }
-  .mega-title { display: block; font-weight: 700; margin-bottom: 8px; }
+  .mega-title { display: block; font-weight: 700; color: var(--ink); margin-bottom: 8px; padding-bottom: 8px; border-bottom: 2px solid var(--accent); }
+  .mega-feature { width: 260px; background: var(--bg-soft); border-radius: var(--radius); padding: 20px; color: var(--ink); display: flex; flex-direction: column; gap: 8px; }
+  .mega-feature .more { color: var(--brand); font-weight: 600; font-size: .9rem; }
+  .mega.small { left: auto; right: 20px; width: 240px; display: none; }
+  .has-menu:hover > .mega.small, .has-menu:focus-within > .mega.small { display: block; }
   .nav-cta { padding: 10px 20px; font-size: .9rem; white-space: nowrap; }
   .nav-toggle, .burger { display: none; }
 
-  @media (max-width: 1100px) {
+  @media (max-width: 1180px) {
     .burger { display: flex; flex-direction: column; gap: 5px; cursor: pointer; padding: 10px; }
     .burger span { width: 24px; height: 2px; background: var(--ink); }
-    .main-nav { display: none; position: absolute; top: 100%; left: 0; right: 0; background: #fff; flex-direction: column; align-items: stretch; padding: 10px 20px 24px; border-bottom: 1px solid var(--line); max-height: 80vh; overflow-y: auto; }
+    .main-nav { display: none; position: absolute; top: 100%; left: 0; right: 0; background: #fff; flex-direction: column; align-items: stretch; padding: 8px 20px 24px; border-bottom: 1px solid var(--line); max-height: calc(100vh - 120px); overflow-y: auto; }
     .nav-toggle:checked ~ .main-nav { display: flex; }
-    .main-nav > ul { flex-direction: column; }
-    .main-nav > ul > li > a { padding: 12px 0; }
-    .mega { position: static; display: block; border: 0; box-shadow: none; padding: 0 0 8px 12px; min-width: 0; }
-    .mega ul { columns: 1; }
-    .mega-title { display: none; }
-    .nav-inner { position: relative; }
+    .menu { flex-direction: column; }
+    .menu > li > a { padding: 12px 0; border-bottom: 1px solid var(--line); }
+    .mega, .has-menu:hover > .mega, .mega.small { position: static; display: block; border: 0; box-shadow: none; padding: 8px 0 8px 12px; width: auto; }
+    .mega-cols { grid-template-columns: 1fr; gap: 8px; }
+    .mega-feature { display: none; }
+    .topbar-inner > a { display: none; }
+    .topbar-right { width: 100%; justify-content: space-between; }
   }
 </style>

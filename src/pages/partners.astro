@@ -1,0 +1,39 @@
+---
+import Base from '../layouts/Base.astro';
+import LeadForm from '../components/LeadForm.astro';
+import { site } from '../config/site';
+import { img } from '../data/images';
+
+const types = [
+  { title: 'Referral partners', text: 'Know a business that needs marketing help? Send them our way and earn a referral fee when they sign on.' },
+  { title: 'White-label partners', text: 'Agencies and consultants can resell our SEO, ads and development under their own brand.' },
+  { title: 'Technology partners', text: 'Software and platform companies can work with us on integrations and joint offers.' },
+];
+const perks = ['A dedicated partner manager', 'Clear, reliable payouts', 'Co-branded proposals and reports', 'Priority support for referred clients'];
+---
+<Base title="Partner With Us" description={`Referral, white-label and technology partnerships with ${site.name}.`}>
+  <section class="hero">
+    <div class="container">
+      <span class="eyebrow">Partners</span>
+      <h1>Partner With {site.name}</h1>
+      <p class="lead">Grow your business by working with ours. We offer referral, white-label and technology partnerships.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container grid cols-3">
+      {types.map((t) => <div class="card"><h3>{t.title}</h3><p>{t.text}</p></div>)}
+    </div>
+  </section>
+
+  <section class="section soft">
+    <div class="container split">
+      <div>
+        <h2>Why Partner With Us</h2>
+        <ul class="check-list">{perks.map((p) => <li>{p}</li>)}</ul>
+        <div class="photo"><img src={img('unity', 900)} alt="Partners working together" loading="lazy" /></div>
+      </div>
+      <LeadForm title="Become a Partner" />
+    </div>
+  </section>
+</Base>

@@ -1,0 +1,19 @@
+---
+// Platforms you work with. This only says you use them; add official partner badges here once you earn them.
+const platforms = ['Google Ads', 'Meta', 'Shopify', 'WordPress', 'BigCommerce', 'Magento', 'Microsoft Ads', 'LinkedIn', 'TikTok', 'Klaviyo'];
+interface Props { title?: string }
+const { title = 'Platforms we work with every day' } = Astro.props;
+---
+<section class="platforms">
+  <div class="container">
+    <p class="platforms-title">{title}</p>
+    <ul>{platforms.map((p) => <li>{p}</li>)}</ul>
+  </div>
+</section>
+
+<style>
+  .platforms { padding: 36px 0; border-bottom: 1px solid var(--line); }
+  .platforms-title { text-align: center; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: .1em; font-size: .8rem; }
+  ul { list-style: none; display: flex; flex-wrap: wrap; justify-content: center; gap: 12px 32px; padding: 0; margin: 0; }
+  li { font-weight: 800; color: #94a3b8; font-size: 1.15rem; }
+</style>

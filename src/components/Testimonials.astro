@@ -1,0 +1,36 @@
+---
+// SAMPLE testimonials. Replace with real client quotes (with permission) before launch,
+// then remove the "Sample" label by setting sample: false.
+export const testimonials = [
+  { sample: true, text: 'They explained everything in plain English and actually picked up the phone when we called. Our leads have never been steadier.', name: 'Client Name', role: 'Owner, Your Client Co.' },
+  { sample: true, text: 'We came for a new website and stayed for the SEO. Having one team handle both made life so much easier.', name: 'Client Name', role: 'Marketing Director, Your Client Co.' },
+  { sample: true, text: 'The monthly reports are the first ones I’ve ever read cover to cover. I always know what we’re paying for.', name: 'Client Name', role: 'Founder, Your Client Co.' },
+];
+interface Props { title?: string }
+const { title = 'What Our Clients Are Saying' } = Astro.props;
+---
+<section class="section">
+  <div class="container">
+    <h2 class="center">{title}</h2>
+    <div class="grid cols-3" style="margin-top:36px">
+      {testimonials.map((t) => (
+        <figure class="card quote">
+          {t.sample && <span class="sample-tag inline">Sample testimonial</span>}
+          <blockquote>“{t.text}”</blockquote>
+          <figcaption>
+            <span class="avatar" aria-hidden="true">{t.name.split(' ').map((w) => w[0]).join('')}</span>
+            <span><strong>{t.name}</strong><br /><small>{t.role}</small></span>
+          </figcaption>
+        </figure>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .quote { margin: 0; display: flex; flex-direction: column; gap: 16px; }
+  blockquote { margin: 0; font-size: 1.05rem; color: var(--ink); }
+  figcaption { display: flex; gap: 12px; align-items: center; margin-top: auto; }
+  small { color: var(--muted); }
+  .avatar { width: 44px; height: 44px; border-radius: 50%; background: var(--brand); color: #fff; display: grid; place-items: center; font-weight: 700; flex-shrink: 0; }
+</style>

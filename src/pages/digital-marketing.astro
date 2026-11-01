@@ -1,0 +1,47 @@
+---
+import Base from '../layouts/Base.astro';
+import Hero from '../components/Hero.astro';
+import Stats from '../components/Stats.astro';
+import CaseStudyCards from '../components/CaseStudyCards.astro';
+import Testimonials from '../components/Testimonials.astro';
+import Faq from '../components/Faq.astro';
+import CTA from '../components/CTA.astro';
+import { getCategory, servicesIn } from '../data/services';
+import { img } from '../data/images';
+
+const groups = ['seo', 'paid-advertising', 'online-marketing'].map(getCategory);
+const faqs = groups.flatMap((g) => g.faqs.slice(0, 2));
+---
+<Base title="Digital Marketing" description="SEO, paid advertising and online marketing from one accountable team.">
+  <Hero image="teamWork" eyebrow="Digital Marketing" title="Digital Marketing Services That Grow Revenue" subtitle="SEO, paid ads, social, email and CRO from one accountable team" crumbs={[{ name: 'Home', href: '/' }, { name: 'Digital Marketing' }]}>
+    <p style="color:#e0e7ff;max-width:600px">Pick one channel or bring them all together. Either way you get a single strategist, a single plan and a single report that shows what your marketing is earning.</p>
+  </Hero>
+
+  <Stats stats={[
+    { value: '3 disciplines', label: 'Search, paid and online marketing' },
+    { value: '1 team', label: 'Planning every channel together' },
+    { value: 'Month to month', label: 'No long contracts' },
+  ]} />
+
+  {groups.map((g, i) => (
+    <section class={`section ${i % 2 ? 'soft' : ''}`}>
+      <div class={`container split ${i % 2 ? 'reverse' : ''}`}>
+        <div>
+          <span class="eyebrow">{g.name}</span>
+          <h2>{g.headline}</h2>
+          <p>{g.intro}</p>
+          <ul class="check-list">
+            {servicesIn(g.slug).map((s) => <li><a href={`/services/${s.slug}`}>{s.name}</a></li>)}
+          </ul>
+          <a href={`/${g.slug}`} class="btn">Explore {g.name}</a>
+        </div>
+        <div class="photo"><img src={img(g.image, 900)} alt={g.name} loading="lazy" /></div>
+      </div>
+    </section>
+  ))}
+
+  <CaseStudyCards title="Marketing Case Studies" />
+  <Testimonials />
+  <Faq faqs={faqs} />
+  <CTA />
+</Base>

@@ -1,0 +1,82 @@
+---
+import Base from '../../layouts/Base.astro';
+import CTA from '../../components/CTA.astro';
+import CaseStudyCards from '../../components/CaseStudyCards.astro';
+import { caseStudies } from '../../data/caseStudies';
+import { img } from '../../data/images';
+
+export function getStaticPaths() {
+  return caseStudies.map((cs) => ({ params: { slug: cs.slug }, props: { cs } }));
+}
+const { cs } = Astro.props;
+const others = caseStudies.filter((c) => c.slug !== cs.slug).slice(0, 3);
+---
+<Base title={`${cs.client} Case Study`} description={cs.summary}>
+  {cs.sample && <div class="sample-banner">Sample project: this client and these results are fictional placeholders.</div>}
+  <section class="cs-hero" style={`--img:url('${img(cs.image, 1800)}')`}>
+    <div class="container">
+      <nav class="crumbs"><a href="/">Home</a> / <a href="/portfolio">Case Studies</a> / {cs.client}</nav>
+      <h1>{cs.client}</h1>
+      <p class="cs-head">{cs.headline}</p>
+      <div class="tags">{[cs.industry, cs.platform, ...cs.services].map((t) => <span>{t}</span>)}</div>
+    </div>
+  </section>
+
+  <section class="stats-band">
+    <div class="container stats-row">
+      {cs.results.map((r) => <div class="stat"><span class="stat-value">{r.value}</span><span class="stat-label">{r.label}</span></div>)}
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container cs-layout">
+      <article class="prose">
+        <p class="lead">{cs.summary}</p>
+        <h2>Challenge</h2>
+        {cs.challenge.map((p) => <p>{p}</p>)}
+        <h2>Solution</h2>
+        {cs.solution.map((p) => <p>{p}</p>)}
+        <h2>Results</h2>
+        {cs.outcome.map((p) => <p>{p}</p>)}
+        {cs.quote && (
+          <blockquote class="cs-quote">“{cs.quote.text}”<footer>{cs.quote.name}, {cs.quote.role}</footer></blockquote>
+        )}
+      </article>
+      <aside class="card cs-side">
+        <h3>Project details</h3>
+        <dl>
+          <dt>Client</dt><dd>{cs.client}</dd>
+          <dt>Industry</dt><dd>{cs.industry}</dd>
+          <dt>Platform</dt><dd>{cs.platform}</dd>
+          <dt>Services</dt><dd>{cs.services.join(', ')}</dd>
+        </dl>
+        <a href="/contact" class="btn" style="width:100%;text-align:center">Get Similar Results</a>
+      </aside>
+    </div>
+  </section>
+
+  <CaseStudyCards items={others} title="More Case Studies" />
+  <CTA />
+</Base>
+
+<style>
+  .cs-hero { color: #fff; padding: 90px 0 70px; background: linear-gradient(90deg, rgba(15,23,42,.92), rgba(30,27,75,.7)), var(--img) center/cover; }
+  .cs-hero h1 { color: #fff; }
+  .cs-head { font-size: 1.3rem; color: #c7d2fe; max-width: 720px; }
+  .crumbs { color: #a5b4fc; font-size: .88rem; margin-bottom: 14px; }
+  .crumbs a { color: #a5b4fc; }
+  .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
+  .tags span { background: rgba(255,255,255,.12); padding: 5px 12px; border-radius: 999px; font-size: .85rem; }
+  .stats-band { background: var(--brand); color: #fff; padding: 44px 0; }
+  .stats-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 24px; text-align: center; }
+  .stat-value { display: block; font-size: 2.4rem; font-weight: 800; }
+  .stat-label { color: #e0e7ff; }
+  .cs-layout { display: grid; grid-template-columns: 1fr 320px; gap: 48px; align-items: start; }
+  .cs-side { position: sticky; top: 140px; }
+  dl { margin: 0 0 20px; }
+  dt { font-weight: 700; font-size: .85rem; color: var(--muted); text-transform: uppercase; letter-spacing: .05em; margin-top: 12px; }
+  dd { margin: 2px 0 0; }
+  .cs-quote { border-left: 4px solid var(--accent); padding: 8px 0 8px 20px; margin: 28px 0; font-size: 1.25rem; font-weight: 600; }
+  .cs-quote footer { font-size: .95rem; font-weight: 400; color: var(--muted); margin-top: 8px; }
+  @media (max-width: 900px) { .cs-layout { grid-template-columns: 1fr; } .cs-side { position: static; } }
+</style>

@@ -1,36 +1,57 @@
 ---
 import Base from '../layouts/Base.astro';
+import LeadForm from '../components/LeadForm.astro';
+import Faq from '../components/Faq.astro';
 import CTA from '../components/CTA.astro';
 
 // Edit plans and prices here.
 const plans = [
-  { name: 'Starter', price: '$—/mo', text: 'For small businesses getting started with one channel.', items: ['One core service', 'Monthly reporting', 'Dedicated strategist', 'Month-to-month'] },
-  { name: 'Growth', price: '$—/mo', text: 'For businesses ready to scale across multiple channels.', items: ['Up to three services', 'Bi-weekly check-ins', 'Conversion tracking setup', 'Quarterly strategy review'], featured: true },
+  { name: 'Starter', price: 'From $—/mo', text: 'For small businesses focusing on one channel.', items: ['One core service', 'Dedicated strategist', 'Monthly report', 'Month to month'] },
+  { name: 'Growth', price: 'From $—/mo', text: 'For businesses ready to grow across channels.', items: ['Up to three services', 'Bi-weekly check-ins', 'Conversion tracking setup', 'Quarterly strategy review'], featured: true },
   { name: 'Enterprise', price: 'Custom', text: 'For large or multi-location organizations.', items: ['Full-service program', 'Senior strategy team', 'Custom dashboards', 'Priority support'] },
 ];
+const faqs = [
+  { q: 'Why don’t you list exact prices?', a: 'Every business has different goals and competition. A local plumber and a national retailer need very different plans, so we price each proposal to fit.' },
+  { q: 'Are there setup fees?', a: 'Some projects, like new websites or tracking rebuilds, have a one-time setup cost. We’ll always show it clearly in your proposal.' },
+  { q: 'Can I cancel anytime?', a: 'Yes. Ongoing services are month to month with 30 days’ notice.' },
+  { q: 'Is ad spend included?', a: 'No. Ad spend is paid directly to the platforms from accounts you own. Our fee covers management.' },
+];
 ---
-<Base title="Pricing" description="Flexible, month-to-month digital marketing plans.">
+<Base title="Pricing" description="Flexible, month-to-month digital marketing and web design pricing.">
   <section class="hero">
-    <div class="container center">
-      <span class="eyebrow">Pricing</span>
-      <h1>Simple, flexible pricing</h1>
-      <p class="lead">No long-term contracts. Every plan is tailored after a free consultation.</p>
+    <div class="container split">
+      <div>
+        <span class="eyebrow">Pricing</span>
+        <h1>Simple, Flexible Pricing</h1>
+        <p class="lead">No long contracts and no surprise fees. Tell us about your goals and we’ll send a clear proposal with pricing built for your business.</p>
+        <h3>What you get with every plan</h3>
+        <ul class="check-list">
+          <li>A dedicated strategist</li>
+          <li>Transparent monthly reporting</li>
+          <li>Full ownership of your accounts and content</li>
+        </ul>
+      </div>
+      <LeadForm title="Request Your Custom Quote" />
     </div>
   </section>
 
   <section class="section">
-    <div class="container grid cols-3">
-      {plans.map((p) => (
-        <div class="card" style={p.featured ? 'border:2px solid var(--brand)' : ''}>
-          <h3>{p.name}</h3>
-          <p style="font-size:2rem;font-weight:800;color:var(--ink);margin:8px 0">{p.price}</p>
-          <p>{p.text}</p>
-          <ul>{p.items.map((i) => <li>{i}</li>)}</ul>
-          <a href="/contact" class={`btn ${p.featured ? '' : 'ghost'}`}>Get a Quote</a>
-        </div>
-      ))}
+    <div class="container">
+      <h2 class="center">Choose a Starting Point</h2>
+      <div class="grid cols-3" style="margin-top:32px">
+        {plans.map((p) => (
+          <div class="card" style={p.featured ? 'border:2px solid var(--brand)' : ''}>
+            <h3>{p.name}</h3>
+            <p style="font-size:1.8rem;font-weight:800;color:var(--ink);margin:8px 0">{p.price}</p>
+            <p>{p.text}</p>
+            <ul class="check-list" style="margin-top:16px">{p.items.map((i) => <li>{i}</li>)}</ul>
+            <a href="/contact" class={`btn ${p.featured ? '' : 'ghost'}`}>Get a Quote</a>
+          </div>
+        ))}
+      </div>
     </div>
   </section>
 
+  <Faq faqs={faqs} title="Pricing FAQs" />
   <CTA />
 </Base>

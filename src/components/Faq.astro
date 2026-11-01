@@ -1,0 +1,17 @@
+---
+import type { Faq } from '../data/services';
+interface Props { faqs: Faq[]; title?: string }
+const { faqs, title = 'Frequently Asked Questions (FAQs)' } = Astro.props;
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
+};
+---
+<section class="section soft">
+  <div class="container faq" style="max-width:880px">
+    <h2 class="center">{title}</h2>
+    {faqs.map((f, i) => <details open={i === 0}><summary>{f.q}</summary><p>{f.a}</p></details>)}
+  </div>
+  <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+</section>

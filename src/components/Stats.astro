@@ -1,0 +1,23 @@
+---
+import type { Stat } from '../data/services';
+interface Props { stats: Stat[]; title?: string }
+const { stats, title } = Astro.props;
+---
+<section class="stats-band">
+  <div class="container">
+    {title && <h2 class="center stats-title">{title}</h2>}
+    <div class="stats-row">
+      {stats.map((s) => (
+        <div class="stat"><span class="stat-value">{s.value}</span><span class="stat-label">{s.label}</span></div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .stats-band { background: var(--brand); color: #fff; padding: 48px 0; }
+  .stats-title { color: #fff; margin-bottom: 28px; }
+  .stats-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 24px; text-align: center; }
+  .stat-value { display: block; font-size: clamp(1.8rem, 4vw, 2.6rem); font-weight: 800; letter-spacing: -0.02em; }
+  .stat-label { color: #e0e7ff; }
+</style>

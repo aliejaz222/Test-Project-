@@ -1,7 +1,14 @@
 ---
 import Base from '../../layouts/Base.astro';
+import Hero from '../../components/Hero.astro';
+import Stats from '../../components/Stats.astro';
+import CaseStudyCards from '../../components/CaseStudyCards.astro';
+import Testimonials from '../../components/Testimonials.astro';
+import Faq from '../../components/Faq.astro';
 import CTA from '../../components/CTA.astro';
 import { services, getCategory, servicesIn } from '../../data/services';
+import { caseStudies } from '../../data/caseStudies';
+import { img } from '../../data/images';
 import { site } from '../../config/site';
 
 export function getStaticPaths() {
@@ -11,84 +18,99 @@ export function getStaticPaths() {
 const { service } = Astro.props;
 const category = getCategory(service.category);
 const faqs = service.faqs ?? category.faqs;
-const related = servicesIn(service.category).filter((s) => s.slug !== service.slug).slice(0, 6);
+const related = servicesIn(service.category).filter((s) => s.slug !== service.slug).slice(0, 7);
+// Show case studies that used this service first, then fill with others.
+const matched = caseStudies.filter((c) => c.services.some((s) => s === service.name));
+const studies = [...matched, ...caseStudies.filter((c) => !matched.includes(c))].slice(0, 3);
 ---
 <Base title={service.name} description={service.intro}>
-  <section class="hero">
-    <div class="container">
-      <nav class="breadcrumb"><a href="/">Home</a> / <a href={`/${category.slug}`}>{category.name}</a> / {service.name}</nav>
-      <span class="eyebrow">{service.name}</span>
-      <h1>{service.headline}</h1>
-      <p class="lead">{service.intro}</p>
-      <div class="btn-row">
-        <a href="/contact" class="btn">Get a Free Proposal</a>
-        <a href="/portfolio" class="btn ghost">See Our Work</a>
-      </div>
-    </div>
-  </section>
+  <Hero
+    image={service.image}
+    eyebrow={service.name}
+    title={service.headline}
+    subtitle={service.subhead}
+    crumbs={[{ name: 'Home', href: '/' }, { name: category.name, href: `/${category.slug}` }, { name: service.name }]}
+    formTitle={`Get a Free ${service.name} Proposal`}
+  >
+    <p style="color:#e0e7ff;max-width:600px">{service.intro}</p>
+  </Hero>
+
+  <Stats stats={category.stats} />
 
   <section class="section">
-    <div class="container">
-      <span class="eyebrow">What’s included</span>
-      <h2>Our {service.name} services</h2>
-      <div class="grid cols-4" style="margin-top:32px">
-        {service.features.map((f) => (
-          <div class="card"><h3>{f.title}</h3><p>{f.text}</p></div>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <section class="section soft">
-    <div class="container">
-      <span class="eyebrow">How we work</span>
-      <h2>A clear process from day one</h2>
-      <div class="grid cols-4 steps" style="margin-top:32px">
-        {category.process.map((p) => (
-          <div class="card"><h3>{p.title}</h3><p>{p.text}</p></div>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="container grid cols-2" style="align-items:center">
-      <div>
-        <span class="eyebrow">Why {site.name}</span>
-        <h2>One team. Every channel. Real accountability.</h2>
-        <p class="lead">Since {site.founded}, we’ve helped businesses grow with honest advice and work that’s measured against your goals — not vanity metrics.</p>
-        <ul>
-          <li>Dedicated strategist and in-house specialists</li>
-          <li>Month-to-month agreements</li>
-          <li>Transparent reporting you can actually read</li>
-          <li>You own your accounts, content and data</li>
-        </ul>
-      </div>
-      <div class="placeholder-img">Replace with an image</div>
-    </div>
-  </section>
-
-  <section class="section soft">
-    <div class="container faq" style="max-width:860px">
-      <h2 class="center">{service.name} FAQs</h2>
-      {faqs.map((f) => (
-        <details><summary>{f.q}</summary><p>{f.a}</p></details>
+    <div class="container grid cols-2">
+      {service.highlights.map((h) => (
+        <div class="card"><h3>{h.title}</h3><p>{h.text}</p></div>
       ))}
     </div>
   </section>
 
+  <section class="section soft">
+    <div class="container split">
+      <div class="photo"><img src={img(service.image, 900)} alt={service.name} loading="lazy" /></div>
+      <div>
+        <span class="eyebrow">Why {site.name}</span>
+        <h2>Why Businesses Choose Us for {service.name}</h2>
+        {category.why.map((w) => (
+          <div class="why-item"><h3>{w.title}</h3><p>{w.text}</p></div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="center">
+        <span class="eyebrow">What’s included</span>
+        <h2>Our {service.name} Services</h2>
+      </div>
+      <div class="grid cols-3" style="margin-top:36px">
+        {service.included.map((f, i) => (
+          <div class="card icon-card"><span class="icon">{String(i + 1).padStart(2, '0')}</span><h3>{f.title}</h3><p>{f.text}</p></div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section dark-section">
+    <div class="container">
+      <h2 class="center">How We Work</h2>
+      <div class="grid cols-4 steps" style="margin-top:32px">
+        {category.process.map((p) => <div class="card"><h3>{p.title}</h3><p>{p.text}</p></div>)}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container prose">
+      <h2>{service.deepDive.title}</h2>
+      {service.deepDive.paragraphs.map((p) => <p>{p}</p>)}
+      <a href="/contact" class="btn">Talk to a Strategist</a>
+    </div>
+  </section>
+
+  <CaseStudyCards items={studies} title={`${category.name} Case Studies`} />
+  <Testimonials />
+  <Faq faqs={faqs} title={`${service.name} FAQs`} />
+
   {related.length > 0 && (
     <section class="section">
       <div class="container">
-        <h2>Related {category.name} services</h2>
-        <div class="grid cols-3" style="margin-top:24px">
+        <h2>More {category.name} Services</h2>
+        <div class="grid cols-4" style="margin-top:24px">
           {related.map((s) => (
-            <a href={`/services/${s.slug}`} class="card"><h3>{s.name}</h3><p>{s.intro}</p><span class="more">Learn more →</span></a>
+            <a href={`/services/${s.slug}`} class="card"><h3>{s.name}</h3><span class="more">Learn more →</span></a>
           ))}
         </div>
       </div>
     </section>
   )}
 
-  <CTA />
+  <CTA title={`Ready to grow with ${service.name}?`} />
 </Base>
+
+<style>
+  .why-item { border-left: 3px solid var(--accent); padding-left: 16px; margin-bottom: 18px; }
+  .why-item h3 { margin-bottom: 4px; font-size: 1.05rem; }
+  .why-item p { margin: 0; color: var(--muted); }
+</style>

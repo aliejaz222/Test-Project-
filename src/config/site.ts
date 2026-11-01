@@ -1,4 +1,4 @@
-// Central brand settings — change these to rebrand the whole site.
+// Central brand settings. Change these to rebrand the whole site.
 export const site = {
   name: 'Dreamline Digital',
   tagline: 'Your one stop solution',
@@ -17,6 +17,19 @@ export const site = {
     linkedin: '#',
     x: '#',
   },
+  // Your real review profiles. Fill in rating and count only once they’re live and accurate.
+  reviews: {
+    google: { url: '#', rating: '', count: '' },
+    facebook: { url: '#', rating: '', count: '' },
+    clutch: { url: '#', rating: '', count: '' },
+  },
+  // Cities and regions you serve (Client Locations page).
+  locations: [
+    { region: 'West', cities: ['Los Angeles', 'San Diego', 'San Francisco', 'Seattle', 'Phoenix', 'Denver'] },
+    { region: 'Central', cities: ['Dallas', 'Houston', 'Austin', 'Chicago', 'Minneapolis', 'Kansas City'] },
+    { region: 'East', cities: ['New York', 'Boston', 'Miami', 'Atlanta', 'Philadelphia', 'Washington, DC'] },
+    { region: 'International', cities: ['Toronto', 'London', 'Sydney', 'Dubai'] },
+  ],
 };
 
 export const yearsInBusiness = new Date().getFullYear() - site.founded;

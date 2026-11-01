@@ -1,58 +1,96 @@
 ---
 import Base from '../layouts/Base.astro';
+import Stats from '../components/Stats.astro';
 import CTA from '../components/CTA.astro';
 import { site, yearsInBusiness } from '../config/site';
+import { img } from '../data/images';
 
 const values = [
-  { title: 'Results first', text: 'We measure success by your revenue and leads, not by activity.' },
-  { title: 'Radical transparency', text: 'Clear reporting, honest advice and no hidden fees.' },
-  { title: 'Always learning', text: 'Search, ads and AI change fast — so do we.' },
-  { title: 'Partnership', text: 'We act as an extension of your team, not a vendor.' },
+  { title: 'Results over activity', text: 'We judge ourselves by your revenue and leads, not by how busy we look.' },
+  { title: 'Straight talk', text: 'Clear reporting, honest advice and no hidden fees. If something isn’t working, you’ll hear it from us first.' },
+  { title: 'Always learning', text: 'Search, ads and AI change every month. Our team trains constantly so you don’t have to.' },
+  { title: 'Real partnership', text: 'We act like part of your team. Your goals become our goals.' },
+];
+
+// Replace with your real team. Photos go in public/images/team/.
+const departments = [
+  { name: 'Leadership', roles: ['Founder & CEO', 'Director of Operations', 'Head of Strategy'] },
+  { name: 'Marketing', roles: ['SEO Lead', 'Paid Media Lead', 'Content Lead', 'Social Media Manager'] },
+  { name: 'Web', roles: ['Creative Director', 'Lead Developer', 'UX Designer', 'Project Manager'] },
 ];
 ---
 <Base title="About Us" description={`Learn about ${site.name}, a full-service digital agency helping businesses grow since ${site.founded}.`}>
   <section class="hero">
     <div class="container">
-      <span class="eyebrow">About {site.name}</span>
-      <h1>Helping businesses grow online since {site.founded}</h1>
-      <p class="lead">{site.name} was founded with a simple idea: businesses deserve one partner who can handle every part of digital growth — and be accountable for the results.</p>
+      <span class="eyebrow">About Us</span>
+      <h1>Who We Are</h1>
+      <p class="lead">{site.name} is a full-service digital agency. Since {site.founded} we’ve helped businesses get found, win customers and grow, with one team handling everything from SEO to web development.</p>
     </div>
   </section>
 
   <section class="section">
-    <div class="container grid cols-2" style="align-items:center">
+    <div class="container split">
       <div>
-        <h2>Our story</h2>
-        <p>Over the past {yearsInBusiness}+ years we’ve grown from a small team into a full-service agency covering SEO, paid media, social, email, AI and web development.</p>
-        <p>Replace this paragraph with your own founding story, milestones and what makes your team different.</p>
+        <h2>How We Got Started</h2>
+        <p>{site.name} began in {site.founded} with a simple frustration: businesses were juggling separate agencies for search, ads and web design, and nobody owned the result. We set out to build one team that could do it all, and be accountable for it.</p>
+        <h2>Where We Are Today</h2>
+        <p>{yearsInBusiness}+ years later we cover {`SEO, AI search, paid media, social, email, CRO and web development`}. The idea hasn’t changed: one plan, one team, real results. Replace this with your own milestones.</p>
       </div>
-      <div class="placeholder-img">Replace with a team photo</div>
+      <div class="photo"><img src={img('team', 900)} alt="Our team working together" loading="lazy" /></div>
+    </div>
+  </section>
+
+  <Stats stats={[
+    { value: `${site.founded}`, label: 'Year founded' },
+    { value: `${yearsInBusiness}+`, label: 'Years in business' },
+    { value: '100%', label: 'Focused on client growth' },
+  ]} />
+
+  <section class="section">
+    <div class="container split reverse">
+      <div>
+        <h2>What Makes Us Different</h2>
+        <p>Most agencies specialize in one thing and outsource the rest. We keep strategy, creative and development in-house, so work moves faster and nothing gets lost in handoffs.</p>
+        <h2>Who We Work With</h2>
+        <p>Local service businesses, ecommerce brands, B2B companies and everything in between. If you want to grow and you value honest advice, we’ll get along.</p>
+      </div>
+      <div class="photo"><img src={img('meetingModern', 900)} alt="Team meeting in a modern office" loading="lazy" /></div>
     </div>
   </section>
 
   <section class="section soft">
     <div class="container">
-      <h2 class="center">Our values</h2>
+      <h2 class="center">Meet the Team</h2>
+      {departments.map((d) => (
+        <>
+          <h3 style="margin-top:36px">{d.name}</h3>
+          <div class="grid cols-4" style="margin-top:16px">
+            {d.roles.map((r) => (
+              <div class="card center team-card">
+                <span class="avatar-lg" aria-hidden="true">?</span>
+                <h3>Team Member Name</h3>
+                <p>{r}</p>
+              </div>
+            ))}
+          </div>
+        </>
+      ))}
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <h2 class="center">Our Values</h2>
       <div class="grid cols-4" style="margin-top:32px">
         {values.map((v) => <div class="card"><h3>{v.title}</h3><p>{v.text}</p></div>)}
       </div>
     </div>
   </section>
 
-  <section class="section">
-    <div class="container">
-      <h2 class="center">Leadership team</h2>
-      <div class="grid cols-4" style="margin-top:32px">
-        {[1, 2, 3, 4].map(() => (
-          <div class="card center">
-            <div class="placeholder-img" style="aspect-ratio:1;margin-bottom:16px">Photo</div>
-            <h3>Team Member</h3>
-            <p>Role / Title</p>
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <CTA />
+  <CTA title="Want to work with a team like ours?" />
 </Base>
+
+<style>
+  .avatar-lg { width: 88px; height: 88px; border-radius: 50%; background: #e0e7ff; color: var(--brand); display: grid; place-items: center; font-size: 2rem; font-weight: 800; margin: 0 auto 14px; }
+  .team-card h3 { font-size: 1rem; margin-bottom: 2px; }
+</style>

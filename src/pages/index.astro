@@ -1,103 +1,145 @@
 ---
 import Base from '../layouts/Base.astro';
+import Hero from '../components/Hero.astro';
+import Stats from '../components/Stats.astro';
+import PlatformStrip from '../components/PlatformStrip.astro';
+import CaseStudyCards from '../components/CaseStudyCards.astro';
+import ReviewPlatforms from '../components/ReviewPlatforms.astro';
+import Testimonials from '../components/Testimonials.astro';
+import Faq from '../components/Faq.astro';
 import CTA from '../components/CTA.astro';
 import { site, yearsInBusiness } from '../config/site';
-import { categories, servicesIn } from '../data/services';
+import { services } from '../data/services';
+import { img } from '../data/images';
+
+const faqs = [
+  { q: `What does ${site.name} do?`, a: `We’re a full-service digital agency. We handle SEO, AI search visibility, paid ads, social media, email, conversion optimization and website design and development, all under one roof.` },
+  { q: 'Who do you work with?', a: 'Everyone from local service businesses to national ecommerce brands. What our clients share is a goal to grow revenue, not just traffic.' },
+  { q: 'How much does it cost?', a: 'It depends on what you need. Every plan is custom and month to month. Book a free strategy review and we’ll give you a clear proposal with pricing.' },
+  { q: 'How soon will I see results?', a: 'Paid ads can produce results within weeks. SEO usually shows early movement in two to three months and builds from there. We’ll set honest expectations up front.' },
+  { q: 'Do I have to sign a long contract?', a: 'No. We work month to month. You stay because it’s working, not because you’re locked in.' },
+  { q: 'Will I have a dedicated contact?', a: 'Yes. You get a strategist who knows your business and coordinates our specialists for you.' },
+];
+
+const tools = [
+  { icon: '</>', title: 'Technical audits', text: 'Automated crawls flag site issues before they cost you rankings.' },
+  { icon: '✓', title: 'Task tracking', text: 'Every deliverable logged, so you can see what we did and when.' },
+  { icon: '▲', title: 'Live dashboards', text: 'Traffic, leads and sales in one place, updated daily.' },
+  { icon: '◎', title: 'Audience research', text: 'Tools that show who your buyers are and what they search for.' },
+  { icon: '◆', title: 'Goal tracking', text: 'Conversions measured across every channel we manage.' },
+  { icon: '★', title: 'Review monitoring', text: 'Alerts when customers mention or review your brand.' },
+];
 ---
 <Base title={site.name}>
-  <section class="hero">
+  <Hero image="teamWork" eyebrow={`${site.name} · Since ${site.founded}`} title="Meet the Digital Agency That Treats Your Growth Like Its Own" subtitle={`SEO, AI search, paid ads and websites from one team that’s been helping businesses grow for ${yearsInBusiness}+ years.`}>
+    <div class="btn-row" style="margin-top:24px">
+      <a href="/services" class="btn light">Explore Our Services</a>
+      <a href="/portfolio" class="btn ghost" style="color:#fff;border-color:#fff">See Our Work</a>
+    </div>
+  </Hero>
+
+  <section class="section center">
     <div class="container">
-      <span class="eyebrow">{site.name} · Since {site.founded}</span>
-      <h1>Your one stop solution for digital growth</h1>
-      <p class="lead">SEO, paid advertising, AI visibility, social media and high-performance websites — planned, built and managed by one dedicated team focused on your revenue.</p>
-      <div class="btn-row">
-        <a href="/contact" class="btn">Get a Free Proposal</a>
-        <a href="/services" class="btn ghost">Explore Services</a>
-      </div>
+      <h2>{site.name}: {site.tagline}</h2>
+      <p class="lead">One team for search, ads, social, email and web design. Fewer handoffs, clearer accountability and a single plan aimed at the number that matters most: revenue.</p>
     </div>
   </section>
+
+  <Stats stats={[
+    { value: `${yearsInBusiness}+ years`, label: `Helping businesses grow since ${site.founded}` },
+    { value: `${services.length}`, label: 'Specialist services in-house' },
+    { value: 'Month to month', label: 'No long-term contracts' },
+  ]} />
 
   <section class="section">
-    <div class="container stats">
-      <div><strong>{yearsInBusiness}+</strong><span>Years in business</span></div>
-      <div><strong>40+</strong><span>Specialist services</span></div>
-      <div><strong>1</strong><span>Team for every channel</span></div>
-      <div><strong>0</strong><span>Long-term contracts</span></div>
-    </div>
-  </section>
-
-  <section class="section soft">
-    <div class="container">
-      <div class="center">
-        <span class="eyebrow">What we do</span>
-        <h2>Services that work together</h2>
-        <p class="lead">Pick a single service or combine them into a full growth program.</p>
-      </div>
-      <div class="grid cols-3" style="margin-top:40px">
-        {categories.map((cat) => (
-          <a href={`/${cat.slug}`} class="card">
-            <h3>{cat.name}</h3>
-            <p>{cat.intro}</p>
-            <p style="margin-top:12px;font-size:.9rem">{servicesIn(cat.slug).slice(0, 4).map((s) => s.name).join(' · ')}</p>
-            <span class="more">View {cat.name} →</span>
-          </a>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="container grid cols-2" style="align-items:center">
-      <div class="placeholder-img">Replace with a team or office photo</div>
+    <div class="container split">
       <div>
-        <span class="eyebrow">Why choose us</span>
-        <h2>Strategy, execution and reporting — all in one place</h2>
-        <p class="lead">Juggling multiple agencies wastes time and budget. With {site.name}, one accountable team owns your results across every channel.</p>
-        <div class="grid cols-2" style="margin-top:20px;gap:16px">
-          <div><h3>Data-driven</h3><p>Every decision is backed by tracking you can see.</p></div>
-          <div><h3>Transparent</h3><p>Plain-English reports and direct access to your team.</p></div>
-          <div><h3>Flexible</h3><p>Month-to-month plans that scale with you.</p></div>
-          <div><h3>In-house experts</h3><p>Strategists, designers, developers and writers.</p></div>
-        </div>
+        <span class="eyebrow">Why clients stay</span>
+        <h2>Why You’ll Enjoy Working With Us</h2>
+        <h3>An agency built for search as it is now</h3>
+        <p>Search has changed. Your customers use Google, AI assistants, social feeds and review sites before they decide. We make sure you show up across all of them, with a message that’s consistent everywhere.</p>
+        <ul class="check-list">
+          <li>A dedicated strategist who knows your business</li>
+          <li>Writers, designers, developers and ad specialists on one team</li>
+          <li>Plain-English reporting every month</li>
+          <li>You own your accounts, content and data</li>
+        </ul>
+        <a href="/about" class="btn">Get to Know Us</a>
+      </div>
+      <div class="photo"><img src={img('phone', 900)} alt="Hand holding a smartphone with search results" loading="lazy" /></div>
+    </div>
+  </section>
+
+  <PlatformStrip />
+
+  <section class="section soft">
+    <div class="container">
+      <h2 class="center">Our Services</h2>
+      <div class="grid cols-2" style="margin-top:36px">
+        <a href="/digital-marketing" class="card svc-big">
+          <div class="photo"><img src={img('analytics', 900)} alt="Marketing analytics on a laptop" loading="lazy" /></div>
+          <h3>Marketing</h3>
+          <p>SEO, AI search, Google and social ads, email, social media and conversion optimization, planned as one program.</p>
+          <span class="more">Explore marketing →</span>
+        </a>
+        <a href="/web-design" class="card svc-big">
+          <div class="photo"><img src={img('designStudio', 900)} alt="Web design workspace" loading="lazy" /></div>
+          <h3>Web Design</h3>
+          <p>Custom websites and online stores on Shopify, WordPress, BigCommerce, Magento or fully custom code.</p>
+          <span class="more">Explore web design →</span>
+        </a>
       </div>
     </div>
   </section>
 
-  <section class="section soft">
-    <div class="container">
-      <div class="center">
-        <span class="eyebrow">Results</span>
-        <h2>Featured work</h2>
-        <p class="lead">Add your own case studies on the portfolio page to showcase real client results.</p>
+  <section class="section dark-section">
+    <div class="container split">
+      <div>
+        <h2>Brands Hire Us to Get Found in AI Search</h2>
+        <p>People now ask ChatGPT, Gemini and Perplexity for recommendations. We help your brand become one of the names those tools suggest, while strengthening your Google rankings at the same time.</p>
+        <a href="/ai" class="btn light">See Our AI Services</a>
       </div>
-      <div class="grid cols-3" style="margin-top:40px">
-        {[1, 2, 3].map((n) => (
-          <a href="/portfolio" class="card">
-            <div class="placeholder-img" style="margin-bottom:16px">Case study {n}</div>
-            <h3>Client case study title</h3>
-            <p>Short summary of the challenge, what you did and the measurable result.</p>
-          </a>
-        ))}
+      <div class="grid" style="gap:16px">
+        <div class="card"><h3>AI visibility audits</h3><p>See how AI tools describe you today.</p></div>
+        <div class="card"><h3>Answer-ready content</h3><p>Pages AI tools can quote with confidence.</p></div>
+        <div class="card"><h3>AI traffic tracking</h3><p>Measure visits and leads from AI platforms.</p></div>
       </div>
     </div>
   </section>
 
   <section class="section">
-    <div class="container">
-      <div class="center">
-        <span class="eyebrow">Testimonials</span>
-        <h2>What clients say</h2>
+    <div class="container center">
+      <h3>A Full-Service Web Design and SEO Company</h3>
+      <p class="lead">From the first wireframe to the hundredth blog post, we handle the whole journey. Add your partner and award badges here as you earn them.</p>
+      <div class="badges">
+        {['Google Ads', 'Meta Ads', 'Shopify', 'WordPress', 'BigCommerce'].map((b) => <span class="badge">{b}<small>Badge placeholder</small></span>)}
       </div>
-      <div class="grid cols-3" style="margin-top:40px">
-        {[1, 2, 3].map(() => (
-          <div class="card">
-            <p>“Add a genuine client testimonial here once you have permission to publish it.”</p>
-            <p style="margin-top:16px"><strong style="color:var(--ink)">Client Name</strong><br />Title, Company</p>
-          </div>
-        ))}
+      <h3 style="margin-top:36px">Websites, stores and campaigns built for clients in dozens of industries</h3>
+    </div>
+  </section>
+
+  <Faq faqs={faqs} />
+
+  <CaseStudyCards title="See the Results of Our Approach" intro="A look at the kind of work we do. These are sample projects you can replace with your own client stories." />
+
+  <section class="section">
+    <div class="container">
+      <h3 class="center" style="font-size:1.7rem">Backed by Modern Agency Tools</h3>
+      <div class="grid cols-3" style="margin-top:32px">
+        {tools.map((t) => <div class="card icon-card"><span class="icon">{t.icon}</span><h3>{t.title}</h3><p>{t.text}</p></div>)}
       </div>
     </div>
   </section>
 
+  <ReviewPlatforms />
+  <Testimonials />
   <CTA />
 </Base>
+
+<style>
+  .svc-big { display: flex; flex-direction: column; gap: 10px; }
+  .svc-big .photo { aspect-ratio: 16/9; margin-bottom: 8px; }
+  .badges { display: flex; flex-wrap: wrap; justify-content: center; gap: 16px; margin-top: 24px; }
+  .badge { border: 2px solid var(--line); border-radius: 14px; padding: 14px 22px; font-weight: 800; display: flex; flex-direction: column; }
+  .badge small { color: var(--muted); font-weight: 500; }
+</style>

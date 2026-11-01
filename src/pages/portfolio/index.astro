@@ -1,0 +1,62 @@
+---
+import Base from '../../layouts/Base.astro';
+import CTA from '../../components/CTA.astro';
+import { caseStudies } from '../../data/caseStudies';
+import { img } from '../../data/images';
+
+const filters = ['All', ...new Set(caseStudies.flatMap((c) => [c.industry, c.platform]))];
+---
+<Base title="Case Studies" description="Client case studies across SEO, paid media, web design and more.">
+  <section class="hero">
+    <div class="container center">
+      <span class="eyebrow">Portfolio</span>
+      <h1>Case Studies</h1>
+      <p class="lead">Real problems, the plan we built and what changed. Filter by industry or platform.</p>
+    </div>
+  </section>
+  <div class="sample-banner">The projects below are samples that show the layout. Replace them with your own client stories in src/data/caseStudies.ts.</div>
+
+  <section class="section">
+    <div class="container">
+      <div class="filters" id="filters">
+        {filters.map((f, i) => <button type="button" class={i === 0 ? 'active' : ''} data-filter={f}>{f}</button>)}
+      </div>
+      <div class="grid cols-3" id="cs-grid">
+        {caseStudies.map((c) => (
+          <a href={`/portfolio/${c.slug}`} class="card cs" data-tags={[c.industry, c.platform].join('|')}>
+            <div class="cs-img"><img src={img(c.image, 700)} alt={`${c.client} project`} loading="lazy" />{c.sample && <span class="sample-tag">Sample project</span>}</div>
+            <div class="cs-body">
+              <span class="eyebrow">{c.industry} · {c.platform}</span>
+              <h3>{c.client}</h3>
+              <p>{c.headline}</p>
+              <div class="mini-stats">{c.results.slice(0, 2).map((r) => <span><strong>{r.value}</strong> {r.label}</span>)}</div>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <CTA title="Want results like these?" />
+</Base>
+
+<script>
+  const buttons = document.querySelectorAll<HTMLButtonElement>('#filters button');
+  const cards = document.querySelectorAll<HTMLElement>('#cs-grid .cs');
+  buttons.forEach((b) =>
+    b.addEventListener('click', () => {
+      buttons.forEach((x) => x.classList.toggle('active', x === b));
+      const f = b.dataset.filter!;
+      cards.forEach((c) => (c.style.display = f === 'All' || c.dataset.tags!.split('|').includes(f) ? '' : 'none'));
+    }),
+  );
+</script>
+
+<style>
+  .cs { padding: 0; overflow: hidden; }
+  .cs-img { position: relative; aspect-ratio: 16/10; }
+  .cs-img img { width: 100%; height: 100%; object-fit: cover; }
+  .cs-body { padding: 22px; }
+  .mini-stats { display: flex; gap: 16px; flex-wrap: wrap; margin-top: 12px; font-size: .9rem; color: var(--muted); }
+  .mini-stats strong { color: var(--brand); }
+</style>

@@ -1,0 +1,40 @@
+---
+import { caseStudies, type CaseStudy } from '../data/caseStudies';
+import { img } from '../data/images';
+interface Props { items?: CaseStudy[]; title?: string; intro?: string }
+const { items = caseStudies, title = 'Results From Our Work', intro } = Astro.props;
+---
+<section class="section soft">
+  <div class="container">
+    <div class="center">
+      <span class="eyebrow">Case Studies</span>
+      <h2>{title}</h2>
+      {intro && <p class="lead">{intro}</p>}
+    </div>
+    <ul class="client-row">{items.map((c) => <li>{c.client}</li>)}</ul>
+    <div class="grid cols-3">
+      {items.map((c) => (
+        <a href={`/portfolio/${c.slug}`} class="card cs-card">
+          <div class="cs-img"><img src={img(c.image, 700)} alt={`${c.client} project`} loading="lazy" width="700" height="440" />{c.sample && <span class="sample-tag">Sample project</span>}</div>
+          <div class="cs-body">
+            <span class="cs-meta">{c.industry} · {c.services[0]}</span>
+            <h3>{c.headline}</h3>
+            <span class="more">View case study →</span>
+          </div>
+        </a>
+      ))}
+    </div>
+    <div class="center" style="margin-top:36px"><a href="/portfolio" class="btn ghost">See All Case Studies</a></div>
+  </div>
+</section>
+
+<style>
+  .client-row { list-style: none; display: flex; flex-wrap: wrap; justify-content: center; gap: 10px 28px; padding: 0; margin: 28px 0 36px; }
+  .client-row li { font-weight: 800; color: #64748b; }
+  .cs-card { padding: 0; overflow: hidden; }
+  .cs-img { position: relative; aspect-ratio: 16/10; overflow: hidden; }
+  .cs-img img { width: 100%; height: 100%; object-fit: cover; }
+  .cs-body { padding: 22px; }
+  .cs-meta { font-size: .82rem; color: var(--brand); font-weight: 700; text-transform: uppercase; letter-spacing: .06em; }
+  .cs-body h3 { margin-top: 8px; }
+</style>

@@ -1,0 +1,39 @@
+---
+import Base from '../layouts/Base.astro';
+import ReviewPlatforms from '../components/ReviewPlatforms.astro';
+import Testimonials from '../components/Testimonials.astro';
+import CTA from '../components/CTA.astro';
+import { site } from '../config/site';
+---
+<Base title="Reviews" description={`What clients say about working with ${site.name}.`}>
+  <section class="hero">
+    <div class="container center">
+      <span class="eyebrow">Reviews</span>
+      <h1>Client Reviews</h1>
+      <p class="lead">Don’t just take our word for it. Here’s what the people we work with say.</p>
+    </div>
+  </section>
+
+  <ReviewPlatforms />
+  <Testimonials title="Client Testimonials" />
+
+  <section class="section soft">
+    <div class="container">
+      <h2 class="center">Video Reviews</h2>
+      <p class="lead center">Add short client videos here once you’ve recorded them.</p>
+      <div class="grid cols-3" style="margin-top:28px">
+        {[1, 2, 3].map(() => <div class="placeholder-img">Video review placeholder</div>)}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container center">
+      <h2>Worked With Us?</h2>
+      <p class="lead">We’d love to hear how it went. Your feedback helps other businesses decide, and helps us get better.</p>
+      <a href={site.reviews.google.url} class="btn">Leave a Google Review</a>
+    </div>
+  </section>
+
+  <CTA />
+</Base>
